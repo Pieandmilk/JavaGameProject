@@ -4,6 +4,7 @@ import Objects.OBJ_Key;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 
 public class UI {
     GamePanel gp;
@@ -13,6 +14,8 @@ public class UI {
     public String message;
     public int messageCounter= 0;
     public boolean gameFinished=false;
+    double playTime;
+    DecimalFormat df = new DecimalFormat("#0.00");
 
 
     public UI(GamePanel gp){
@@ -20,7 +23,7 @@ public class UI {
 
         arial_40=new Font("Arial",Font.PLAIN,40);
         arial_80B=new Font("Arial",Font.BOLD,80);
-        OBJ_Key key= new OBJ_Key();
+        OBJ_Key key= new OBJ_Key(gp);
         keyImage=key.image;
 
     }
@@ -47,6 +50,13 @@ public class UI {
 
             g2.drawString(text,x,y);
 
+            text="Your time is: "+ df.format(playTime);
+            textLength= (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+
+            x = gp.screenWidth/2-(textLength/2);
+            y = gp.screenHeight/2+(gp.tileSize*4);
+            g2.drawString(text,x,y);
+
             g2.setFont(arial_80B);
             g2.setColor(Color.yellow);
 
@@ -64,6 +74,10 @@ public class UI {
             g2.setColor(Color.white);
             g2.drawImage(keyImage,gp.tileSize/2,gp.tileSize/2,gp.tileSize,gp.tileSize,null);
             g2.drawString("x "+gp.player.hasKey,74,65);
+
+            //TIME
+            playTime+=(double) 1/60;
+            g2.drawString("Time: "+df.format(playTime),gp.tileSize*17,65);
 
             //Messages
             if (messageOn==true){
