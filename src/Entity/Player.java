@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity{
-    GamePanel gp;
+
     KeyHandler keyH;
 
     public final int screenX;
@@ -20,7 +20,8 @@ public class Player extends Entity{
 
     //Player_One Constructor
     public Player(GamePanel gp, KeyHandler keyH){
-        this.gp= gp;
+        super(gp);//Calling the constructor of class
+
         this.keyH= keyH;
 
         // PLACING CHARACTER AT THE CENTER OF THE SCREEN
@@ -50,28 +51,17 @@ public class Player extends Entity{
     }
     public void getPlayerImage(){
 
-        up1=setup("boy_up_1");
-        up2=setup("boy_up_2");
-        down1=setup("boy_down_1");
-        down2=setup("boy_down_2");
-        left1=setup("boy_left_1");
-        left2=setup("boy_left_2");
-        right1=setup("boy_right_1");
-        right2=setup("boy_right_2");
+        up1=setup("/player/boy_up_1");
+        up2=setup("/player/boy_up_2");
+        down1=setup("/player/boy_down_1");
+        down2=setup("/player/boy_down_2");
+        left1=setup("/player/boy_left_1");
+        left2=setup("/player/boy_left_2");
+        right1=setup("/player/boy_right_1");
+        right2=setup("/player/boy_right_2");
 
     }
-    public BufferedImage setup(String imageName){
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image= null;
 
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-            image= uTool.scaledImage(image,gp.tileSize,gp.tileSize);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return image;
-    }
     public void update(){
         if (keyH.upPressed== true || keyH.downPressed==true || keyH.leftPressed==true || keyH.rightPressed==true){
 
@@ -95,9 +85,14 @@ public class Player extends Entity{
             collisionOn=false;
             gp.cChecker.checkTile(this);
 
+
             //Check object collision
             int objIndex=gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
+
+            //Check npc collision
+            int npcIndex=gp.cChecker.checkEntity(this, gp.npc);
+            InteractNPC(npcIndex);
 
             //IF collision is false, player can move
             if (collisionOn == false){
@@ -164,6 +159,12 @@ public class Player extends Entity{
                     gp.playSE(4);
                     break;
             }
+        }
+    }
+
+    public void InteractNPC(int i){
+        if (i != 999){
+
         }
     }
     public void draw(Graphics2D g2){

@@ -1,5 +1,6 @@
 package Main;
 
+import Entity.Entity;
 import Entity.Player;
 import Objects.SuperObject;
 import tile.TileManager;
@@ -29,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     //SYSTEM
     public TileManager tileM= new TileManager(this);
-    KeyHandler keyH= new KeyHandler();
+    KeyHandler keyH= new KeyHandler(this);
     Sound music= new Sound();
     Sound se= new Sound();
     public CollisionChecker cChecker= new CollisionChecker(this);
@@ -40,6 +41,13 @@ public class GamePanel extends JPanel implements Runnable{
     //PLAYER AND OBJECT
     public Player player= new Player(this,keyH);
     public SuperObject obj[] = new SuperObject[10];//initiates how many objects are present in the screen
+    public  Entity npc[]= new Entity[10];
+
+    //GAME STATE - involves pausing and continuing the game
+    public int gameState;
+    public final int playState=1;
+    public final int pauseState=2;
+
 
 
 
@@ -54,7 +62,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void setupGame(){
         aSetter.setObject();
+        aSetter.setNPC();
         playMusic(0);
+
+        gameState=playState;
     }
 
     public void startGameThread() {
@@ -91,7 +102,20 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
-        player.update();
+        if (gameState==1){
+            //PLAYER
+            player.update();
+
+            //NPC
+            for(int i = 0; i< npc.length;i++){
+                if (npc[i] != null){
+                    npc[i].update();
+                }
+            }
+        }
+        if (gameState==2){
+
+        }
     }
 
     public void paintComponent(Graphics g){
@@ -114,12 +138,21 @@ public class GamePanel extends JPanel implements Runnable{
                 obj[i].draw(g2, this);
             }
         }
+        //NPCs
+        for (int i = 0;i<npc.length;i++){
+            if (npc[i]!=null){
+                npc[i].draw(g2);
+            }
+        }
 
         //Player
         player.draw(g2);
 
         //UI
+
         ui.draw(g2);
+
+
 
         //Debug
         if (keyH.checkDrawTime==true){
