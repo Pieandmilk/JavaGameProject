@@ -2,27 +2,40 @@ package Main;
 
 import Objects.OBJ_Key;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 
 public class UI {
     GamePanel gp;
-    Font minimalPixel2_40,minimalPixel2_80B;
+    Graphics2D g2;
+    Font minimalPixel2;
     BufferedImage keyImage;
     public boolean messageOn=false;
     public String message;
     public int messageCounter= 0;
     public boolean gameFinished=false;
     double playTime;
+    public String currentDialoguesText ="";
+    public int commandNum=0;
     DecimalFormat df = new DecimalFormat("#0.00");
 
 
     public UI(GamePanel gp){
         this.gp=gp;
 
-        minimalPixel2_40=new Font("MinimalPixel2",Font.PLAIN,40);
-        minimalPixel2_80B= new Font("MinimalPixel2",Font.BOLD,80);
+        try {
+            InputStream is =getClass().getResourceAsStream("/font/MinimalPixel v2.ttf");
+            minimalPixel2=Font.createFont(Font.TRUETYPE_FONT,is);
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         OBJ_Key key= new OBJ_Key(gp);
         keyImage=key.image;
 
@@ -33,9 +46,12 @@ public class UI {
     }
 
     public void draw(Graphics2D g2){
+        this.g2=g2;
+        g2.setFont(minimalPixel2);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         if (gameFinished==true){
-            g2.setFont(minimalPixel2_40);
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,40F));
             g2.setColor(Color.white);
             String text;
             int textLength;
@@ -57,7 +73,7 @@ public class UI {
             y = gp.screenHeight/2+(gp.tileSize*4);
             g2.drawString(text,x,y);
 
-            g2.setFont(minimalPixel2_80B);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,80F));
             g2.setColor(Color.yellow);
 
             text="CONGRATULATIONS!!";
@@ -70,9 +86,14 @@ public class UI {
             /*gp.gameThread=null;*/
         }
         else {
-            if (gp.gameState==1){
+            //Title State
+            if (gp.gameState== gp.titleState){
+                drawTitleScreen();
+            }
 
-            g2.setFont(minimalPixel2_40);
+            //Play State
+            else if (gp.gameState==gp.playState){
+                g2.setFont(g2.getFont().deriveFont(Font.PLAIN,40F));
             g2.setColor(Color.white);
 
             g2.drawImage(keyImage,gp.tileSize/2,gp.tileSize/2,gp.tileSize,gp.tileSize,null);
@@ -83,17 +104,15 @@ public class UI {
             g2.drawString("Time: "+df.format(playTime),gp.tileSize*17,65);
 
             }
-            else if (gp.gameState==2){
-                g2.setFont(minimalPixel2_80B);
-                g2.setColor(Color.white);
+            //Pause State
+            else if (gp.gameState==gp.pauseState){
+                drawPause();
+            }
 
-                String text="PAUSED";
-                int textLength= (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+            //Dialog State
+            else if (gp.gameState==gp.dialogState){
 
-                int x = gp.screenWidth/2-(textLength/2);
-                int y = gp.screenHeight/2+(gp.tileSize*2);
-
-                g2.drawString(text,x,y);
+                drawDialogScreen();
             }
 
             //Messages
@@ -109,5 +128,115 @@ public class UI {
             }
         }
 
+    }
+    public void drawTitleScreen(){
+        //BackGround
+        try {
+            BufferedImage bg = ImageIO.read(getClass().getResourceAsStream("/background/title.png"));
+            g2.drawImage(bg,0,0,gp.screenWidth, gp.screenHeight, null);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //Title Name
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,80F));
+
+        String text= "CASINO CHRONICLES";
+        int x = getXforCenterOfScreen(text);
+        int y = gp.screenHeight/2-(gp.tileSize*4);
+
+        //Shadow
+        g2.setColor(Color.black);
+        g2.drawString(text,x+5,y+5);
+        //main color
+        g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        //MENU
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,30F));
+        text="NEW GAME";
+        x = getXforCenterOfScreen(text);
+        y = gp.screenHeight/2-gp.tileSize;
+        g2.setColor(Color.black);
+        g2.drawString(text,x+5,y+5);
+        g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        if(commandNum==0){
+            g2.drawString(">",x-(gp.tileSize/2),y);
+        }
+
+        text="LOAD GAME";
+        x = getXforCenterOfScreen(text);
+        y += gp.tileSize;
+        g2.setColor(Color.black);
+        g2.drawString(text,x+5,y+5);
+        g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        if(commandNum==1){
+            g2.drawString(">",x-(gp.tileSize/2),y);
+        }
+
+        text="QUIT";
+        x = getXforCenterOfScreen(text);
+        y += gp.tileSize;
+        g2.setColor(Color.black);
+        g2.drawString(text,x+5,y+5);
+        g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        if(commandNum==2){
+            g2.drawString(">",x-(gp.tileSize/2),y);
+        }
+    }
+
+    public void drawPause(){
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
+        g2.setColor(Color.white);
+
+        String text="PAUSED";
+
+        int x = getXforCenterOfScreen(text);
+        int y = gp.screenHeight/2;
+
+        g2.drawString(text,x,y);
+    }
+
+    public void drawDialogScreen(){
+        //Window
+        int x= gp.tileSize*2;
+        int y= gp.tileSize/2;
+        int width= gp.screenWidth -(gp.tileSize*4);
+        int height= gp.tileSize *4;
+
+        drawSubWindow(x,y,width,height);
+        x+=gp.tileSize;
+        y+=gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,25F));
+        for(String line:currentDialoguesText.split("\n")){
+            g2.drawString(line,x,y);
+            y+=40;
+        }
+
+    }
+
+    public void drawSubWindow(int x, int y, int width, int height){
+        Color c = new Color(0, 0, 0,200);
+        g2.setColor(c);
+        g2.fillRoundRect(x,y,width,height,35,35);
+
+        c =new Color(255, 255, 255);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5,y+5,width-10,height-10,25,25);
+    }
+
+    public int getXforCenterOfScreen(String text){
+        int textLength= (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+
+        int x = gp.screenWidth/2-(textLength/2);
+        return x;
     }
 }
