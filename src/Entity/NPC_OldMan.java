@@ -16,6 +16,7 @@ public class NPC_OldMan extends Entity{
         direction = "down";
         speed = 1;
         getNPCImage();
+        setDialogue();
     }
 
     public void getNPCImage(){
@@ -28,7 +29,12 @@ public class NPC_OldMan extends Entity{
         left2=setup("/npc/oldman_left_2");
         right1=setup("/npc/oldman_right_1");
         right2=setup("/npc/oldman_right_2");
-
+    }
+    public void setDialogue(){
+        dialogues[0]="Hello traveler.";
+        dialogues[1]="Have you come to this island to find your worth?";
+        dialogues[2]="I used to be a young lad like you but I'm a bit to old now";
+        dialogues[3]="Good luck on your adventures.";
     }
     public void setAction(){
         actionLockCounter++;
@@ -53,6 +59,9 @@ public class NPC_OldMan extends Entity{
             }
             actionLockCounter=0;
         }
+    }
+    public void speak(){
+        super.speak();
     }
 }
 

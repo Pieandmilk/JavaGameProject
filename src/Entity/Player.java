@@ -37,7 +37,7 @@ public class Player extends Entity{
         solidAreaDefaultX=solidArea.x;
         solidAreaDefaultY=solidArea.y;
 
-        solidArea.width=32;
+        solidArea.width= 32;
         solidArea.height= 32;
 
         setDefaultValues();
@@ -164,8 +164,12 @@ public class Player extends Entity{
 
     public void InteractNPC(int i){
         if (i != 999){
-
+            if (gp.keyH.enterPressed==true){
+                gp.gameState=gp.dialogState;
+                gp.npc[i].speak();
+            }
         }
+        gp.keyH.enterPressed=false;
     }
     public void draw(Graphics2D g2){
 

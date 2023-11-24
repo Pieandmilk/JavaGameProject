@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     //SYSTEM
     public TileManager tileM= new TileManager(this);
-    KeyHandler keyH= new KeyHandler(this);
+    public KeyHandler keyH= new KeyHandler(this);
     Sound music= new Sound();
     Sound se= new Sound();
     public CollisionChecker cChecker= new CollisionChecker(this);
@@ -45,8 +45,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     //GAME STATE - involves pausing and continuing the game
     public int gameState;
+    public final int titleState=0;
     public final int playState=1;
     public final int pauseState=2;
+    public final int dialogState=3;
+
 
 
 
@@ -63,9 +66,9 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
         aSetter.setObject();
         aSetter.setNPC();
-        playMusic(0);
 
-        gameState=playState;
+
+        gameState=titleState;
     }
 
     public void startGameThread() {
@@ -128,44 +131,46 @@ public class GamePanel extends JPanel implements Runnable{
             drawStart=System.nanoTime();
         }
 
+        if(gameState==titleState){
+            ui.draw(g2);
+        }
+        else {
+            //Tile
+            tileM.draw(g2);
 
-        //Tile
-        tileM.draw(g2);
-
-        //Object
-        for (int i = 0; i<obj.length;i++){
-            if (obj[i] != null){
-                obj[i].draw(g2, this);
+            //Object
+            for (int i = 0; i<obj.length;i++){
+                if (obj[i] != null){
+                    obj[i].draw(g2, this);
+                }
             }
-        }
-        //NPCs
-        for (int i = 0;i<npc.length;i++){
-            if (npc[i]!=null){
-                npc[i].draw(g2);
+            //NPCs
+            for (int i = 0;i<npc.length;i++){
+                if (npc[i]!=null){
+                    npc[i].draw(g2);
+                }
             }
+
+            //Player
+            player.draw(g2);
+
+            //UI
+
+            ui.draw(g2);
+
+
+
+            //Debug
+            if (keyH.checkDrawTime==true){
+                long drawEnd=System.nanoTime();
+                long passed= drawEnd-drawStart;
+                g2.setColor(Color.white);
+                g2.drawString("Draw time: "+ passed,10,400);
+                System.out.println("Draw time: "+ passed);
+            }
+
+            g2.dispose();
         }
-
-        //Player
-        player.draw(g2);
-
-        //UI
-
-        ui.draw(g2);
-
-
-
-        //Debug
-        if (keyH.checkDrawTime==true){
-            long drawEnd=System.nanoTime();
-            long passed= drawEnd-drawStart;
-            g2.setColor(Color.white);
-            g2.drawString("Draw time: "+ passed,10,400);
-            System.out.println("Draw time: "+ passed);
-        }
-
-
-        g2.dispose();
-
 
     }
 
