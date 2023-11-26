@@ -1,5 +1,6 @@
 package Main;
 
+import Enemies.ENEM_Slime;
 import Entity.NPC_OldMan;
 import Objects.*;
 
@@ -44,7 +45,17 @@ public class AssetSetter {
     }
     public void setNPC(){
         gp.npc[0]= new NPC_OldMan(gp);
-        gp.npc[0].worldX=gp.tileSize*21;
-        gp.npc[0].worldY=gp.tileSize*21;
+        gp.npc[0].worldX=gp.tileSize*77;
+        gp.npc[0].worldY=gp.tileSize*45;
+    }
+
+    public void setEnemy(){
+        gp.enem[0]= new ENEM_Slime(gp);
+        gp.enem[0].worldX=gp.tileSize*75;
+        gp.enem[0].worldY=gp.tileSize*50;
+
+        gp.enem[1]= new ENEM_Slime(gp);
+        gp.enem[1].worldX=gp.tileSize*70;
+        gp.enem[1].worldY=gp.tileSize*55;
     }
 }

@@ -1,5 +1,7 @@
 package Main;
 
+import Entity.Entity;
+import Objects.OBJ_Heart;
 import Objects.OBJ_Key;
 
 import javax.imageio.ImageIO;
@@ -13,7 +15,7 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font minimalPixel2;
-    BufferedImage keyImage;
+    BufferedImage keyImage,heart_full,heart_half,heart_empty;
     public boolean messageOn=false;
     public String message;
     public int messageCounter= 0;
@@ -38,6 +40,12 @@ public class UI {
 
         OBJ_Key key= new OBJ_Key(gp);
         keyImage=key.image;
+
+        //Create Hud object
+        Entity heart = new OBJ_Heart(gp);
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_empty = heart.image3;
 
     }
     public void showMessage(String text){
@@ -94,14 +102,17 @@ public class UI {
             //Play State
             else if (gp.gameState==gp.playState){
                 g2.setFont(g2.getFont().deriveFont(Font.PLAIN,40F));
-            g2.setColor(Color.white);
+                g2.setColor(Color.white);
 
-            g2.drawImage(keyImage,gp.tileSize/2,gp.tileSize/2,gp.tileSize,gp.tileSize,null);
-            g2.drawString("x "+gp.player.hasKey,74,65);
+                g2.drawImage(keyImage,gp.tileSize/2,gp.tileSize*2,gp.tileSize,gp.tileSize,null);
+                g2.drawString("x "+gp.player.hasKey,74,gp.tileSize*3);
 
-            //TIME
-            playTime+=(double) 1/60;
-            g2.drawString("Time: "+df.format(playTime),gp.tileSize*17,65);
+                //TIME
+                playTime+=(double) 1/60;
+                g2.drawString("Time: "+df.format(playTime),gp.tileSize*17,65);
+
+                drawHeart();
+
 
             }
             //Pause State
@@ -130,6 +141,7 @@ public class UI {
 
     }
     public void drawTitleScreen(){
+
         //BackGround
         try {
             BufferedImage bg = ImageIO.read(getClass().getResourceAsStream("/background/title.png"));
@@ -238,5 +250,32 @@ public class UI {
 
         int x = gp.screenWidth/2-(textLength/2);
         return x;
+    }
+
+    public void drawHeart(){
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i=0;
+        //DRAWS MAX HEARTS
+        while(i<gp.player.maxLifePoints/2){
+            g2.drawImage(heart_empty,x,y,null);
+            i++;
+            x+=gp.tileSize;
+        }
+
+        x = gp.tileSize/2;
+        y = gp.tileSize/2;
+        i=0;
+        //DRAW CURRENT HEARTS
+        while(i<gp.player.lifePoints){
+            g2.drawImage(heart_half,x,y,null);
+            i++;
+            if(i <gp.player.lifePoints){
+                g2.drawImage(heart_full,x,y,null);
+            }
+            i++;
+            x += gp.tileSize;
+        }
+
     }
 }
