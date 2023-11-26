@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed,downPressed,leftPressed,rightPressed,enterPressed;
+    public boolean upPressed,downPressed,leftPressed,rightPressed,enterPressed,ePressed;
     boolean checkDrawTime=false;
 
     public KeyHandler (GamePanel gp){
@@ -23,6 +23,7 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
         //Title state
         if (gp.gameState== gp.titleState) {
+
             if (code == KeyEvent.VK_UP) {
                 gp.ui.commandNum--;
                 if (gp.ui.commandNum<0){
@@ -38,6 +39,7 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER){
                 if(gp.ui.commandNum==0){
                     gp.gameState= gp.playState;
+                    gp.stopMusic();
                     gp.playMusic(0);
                 }
                 else if(gp.ui.commandNum==1){
@@ -78,6 +80,9 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_ENTER){
                 enterPressed=true;
+            }
+            if (code == KeyEvent.VK_E){
+                ePressed=true;
             }
         }
         //Pause State

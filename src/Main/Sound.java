@@ -9,11 +9,23 @@ public class Sound {
     Clip clip;
     URL soundURL[]= new URL[30];
     public Sound(){
-        soundURL[0]= getClass().getResource("/sound/BlueBoyAdventure.wav");
-        soundURL[1]= getClass().getResource("/sound/coin.wav");
-        soundURL[2]= getClass().getResource("/sound/powerup.wav");
-        soundURL[3]= getClass().getResource("/sound/unlock.wav");
-        soundURL[4]= getClass().getResource("/sound/fanfare.wav");
+        soundURL[0]= setup("BlueBoyAdventure");
+        soundURL[1]= setup("coin");
+        soundURL[2]= setup("powerup");
+        soundURL[3]= setup("unlock");
+        soundURL[4]= setup("fanfare");
+        soundURL[5]= setup("hitmonster");
+        soundURL[6]= setup("receivedamage");
+        soundURL[7]= setup("weapon_swing");
+        soundURL[8]= setup("heal_up");
+        soundURL[9]= setup("INTRO_TITLE_SONG");
+        soundURL[10]= setup("splash");
+    }
+
+    public URL setup(String filepath){
+        URL sound = null;
+        sound=getClass().getResource("/sound/"+filepath+".wav");
+        return sound;
     }
 
     //Opening a audio file
