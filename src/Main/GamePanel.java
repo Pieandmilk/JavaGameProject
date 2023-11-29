@@ -47,6 +47,8 @@ public class GamePanel extends JPanel implements Runnable{
     public Entity obj[] = new Entity[10];//initiates how many objects are present in the screen
     public  Entity npc[]= new Entity[10];
     public Entity enem[]= new Entity[20];
+    private int aliveEnemies = 0;
+    private int respawnCounter=0;
 
     /*We sort the order of the array. The entity that has the lowest worldY comes in index 0.
     We draw entities in order of their worldY value.(The fewer, the earlier)*/
@@ -58,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int playState=1;
     public final int pauseState=2;
     public final int dialogState=3;
+    public final int characterState=4;
 
 
 
@@ -115,6 +118,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
         if (gameState==1){
+            aliveEnemies = 0;
             //PLAYER
             player.update();
 
@@ -125,15 +129,26 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             for(int i = 0; i< enem.length;i++){
+
                 if (enem[i] != null){
                     if (enem[i].alive==true && enem[i].dying==false){
+                        aliveEnemies++;
                         enem[i].update();
                     }
                     if (enem[i].alive==false){
                         enem[i] = null;
+
                     }
                 }
             }
+            if (aliveEnemies==0){
+                respawnCounter++;
+                if (respawnCounter>2000){
+                    aSetter.setEnemy();
+                    respawnCounter=0;
+                }
+            }
+
         }
         if (gameState==2){
 
@@ -228,4 +243,6 @@ public class GamePanel extends JPanel implements Runnable{
         se.setFile(i);
         se.play();
     }
+
+
 }

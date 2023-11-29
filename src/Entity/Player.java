@@ -2,12 +2,13 @@ package Entity;
 
 import Main.GamePanel;
 import Main.KeyHandler;
-import Main.UtilityTool;
+import Objects.OBJ_Key;
+import Objects.OBJ_SHIELD_Old_Mans;
+import Objects.OBJ_SWORD_Wooden;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.ArrayList;
 
 public class Player extends Entity{
 
@@ -17,8 +18,11 @@ public class Player extends Entity{
     public final int screenY;
     public int hasKey=0;
 
+    public ArrayList<Entity> inventory= new ArrayList<>();
+    public final int maxInventorySize=50;
 
-    //Player_One Constructor
+
+    //Player Constructor
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp);//Calling the constructor of class
 
@@ -45,6 +49,7 @@ public class Player extends Entity{
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
     }
     public void setDefaultValues(){
         worldX=gp.tileSize * 77;
@@ -53,9 +58,37 @@ public class Player extends Entity{
         direction= "down";
 
         //Player Status
+        level=1;
         maxLifePoints=10;
         lifePoints=maxLifePoints;
+        strength=1;
+        dexterity=1;
+        exp=0;
+        nextLevelExp=5;
+        coin=0;
+        currentWeapon= new OBJ_SWORD_Wooden(gp);
+        currentShield= new OBJ_SHIELD_Old_Mans(gp);
+        attack=getAttack();//Total attack is calculated by strength and weapon
+        defense=getDefense();//Total defense is calculated by dexterity and shield
+
     }
+
+    public void setItems(){
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new OBJ_Key(gp));
+
+
+
+    }
+
+  public int getAttack(){
+        return attack=strength*currentWeapon.attackValue;
+  }
+
+  public int getDefense(){
+        return defense=dexterity* currentShield.defenseValue;
+  }
     public void getPlayerImage(){
 
         up1=setup("/player/player_up1",gp.tileSize,gp.tileSize);
@@ -242,7 +275,7 @@ public class Player extends Entity{
                     gp.playSE(1);
                     hasKey++;
                     gp.obj[i]= null;//object will disappear when touch
-                    gp.ui.showMessage("You got a key!");
+
                     break;
                 case "Door":
                     if(hasKey>0){
@@ -250,17 +283,17 @@ public class Player extends Entity{
                         gp.obj[i]= null;//object will disappear when touch
                         System.out.println("Speed:" + speed);
                         hasKey--;
-                        gp.ui.showMessage("You opened a door!");
+
 
                     }else{
-                        gp.ui.showMessage("You need a key!");
+
                     }break;
                 case "Boots":
                     gp.playSE(2);
                     speed +=2;
                     System.out.println("Speed:" + speed);
                     gp.obj[i]= null;
-                    gp.ui.showMessage("You pick up magic boots!");
+
                     break;
                 case "Chest":
                     gp.ui.gameFinished=true;
@@ -288,7 +321,11 @@ public class Player extends Entity{
         if (i!=999){
             if(invincibleFrames==false){
                 gp.playSE(6);
-                lifePoints-=1;
+                int damage=gp.enem[i].attack-defense;
+                if (damage<0){
+                    damage=0;
+                }
+                lifePoints-=damage;
                 invincibleFrames=true;
 
             }
@@ -298,17 +335,44 @@ public class Player extends Entity{
     public void damageEnemy(int i){
         if (i!=999){
             if(gp.enem[i].invincibleFrames == false){
-                gp.enem[i].damageReaction();
+
                 gp.playSE(5);
-                gp.enem[i].lifePoints -=1;
+
+                int damage=attack-gp.enem[i].defense;
+                if (damage<0){
+                    damage=0;
+                }
+                gp.ui.addMessage(damage+ " DAMAGE!");
+                gp.enem[i].lifePoints -=damage;
                 gp.enem[i].invincibleFrames = true;
+                gp.enem[i].damageReaction();
 
                 if (gp.enem[i].lifePoints<=0){
                     gp.enem[i].dying=true;
+                    gp.ui.addMessage("Killed the "+ gp.enem[i].name);
+                    gp.ui.addMessage("EXP Gained +"+ gp.enem[i].exp);
+                    exp+=gp.enem[i].exp;
+                    checkLevelUp();
                 }
             }
         }
     }
+    public void checkLevelUp(){
+        if(exp>=nextLevelExp){
+            level++;
+            nextLevelExp*=2;
+            maxLifePoints+=2;
+            strength++;
+            dexterity++;
+            attack=getAttack();
+            defense=getDefense();
+            gp.playSE(11);
+
+            gp.gameState=gp.dialogState;
+            gp.ui.currentDialoguesText="You're level is now " + level+ "!";
+        }
+    }
+
     public void draw(Graphics2D g2){
 
         BufferedImage image = null;
