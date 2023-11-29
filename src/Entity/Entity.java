@@ -49,7 +49,6 @@ public class Entity {
     public int respawnCounter=0;
 
     //Attributes
-    public int type;
     public String name;
     public int speed;
     public int level;
@@ -69,6 +68,16 @@ public class Entity {
     public int attackValue;
     public int defenseValue;
     public String description="";
+    public int type;//type 0 player, 1 npc, 2 enemies,
+    public final int type_Player=0;
+    public final int type_NPC=1;
+    public final int type_Enemy=2;
+    public final int type_Sword=3;
+    public final int type_Axe=4;
+    public final int type_Shield=5;
+    public final int type_Consumable=6;
+
+
 
 
     public Entity(GamePanel gp){
@@ -232,7 +241,7 @@ public class Entity {
             }
 
             //Enemy Health Bar
-            if (type==2 && hpBarOn == true){
+            if (type==type_Enemy && hpBarOn == true){
                 double oneScale =(double)gp.tileSize/maxLifePoints;//Finds the length of the bar
                 double hpBarValue=oneScale*lifePoints;
 

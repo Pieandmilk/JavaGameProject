@@ -11,7 +11,7 @@ public class ENEM_Slime extends Entity {
     public ENEM_Slime(GamePanel gp) {
         super(gp);
         this.gp=gp;
-        type=2;
+        type= type_Enemy;
         name="Green Slime";
         speed= 1;
         maxLifePoints=20;
