@@ -43,8 +43,6 @@ public class Player extends Entity{
         solidAreaDefaultX=solidArea.x;
         solidAreaDefaultY=solidArea.y;
 
-        attackArea.width= 36;
-        attackArea.height= 36;
 
         setDefaultValues();
         getPlayerImage();
@@ -83,6 +81,7 @@ public class Player extends Entity{
     }
 
   public int getAttack(){
+        attackArea=currentWeapon.attackArea;
         return attack=strength*currentWeapon.attackValue;
   }
 
@@ -269,38 +268,20 @@ public class Player extends Entity{
     public void pickUpObject(int i){
         //indicating that it touch an object
         if (i != 999){
-            String objectName = gp.obj[i].name;
-            switch (objectName){
-                case "Key":
-                    gp.playSE(1);
-                    hasKey++;
-                    gp.obj[i]= null;//object will disappear when touch
+            String text;
 
-                    break;
-                case "Door":
-                    if(hasKey>0){
-                        gp.playSE(3);
-                        gp.obj[i]= null;//object will disappear when touch
-                        System.out.println("Speed:" + speed);
-                        hasKey--;
+            if (inventory.size()!=maxInventorySize){
+                inventory.add(gp.obj[i]);
+                gp.playSE(1);
+                text="You picked up a " + gp.obj[i].name + "!";
 
-
-                    }else{
-
-                    }break;
-                case "Boots":
-                    gp.playSE(2);
-                    speed +=2;
-                    System.out.println("Speed:" + speed);
-                    gp.obj[i]= null;
-
-                    break;
-                case "Chest":
-                    gp.ui.gameFinished=true;
-                    gp.stopMusic();
-                    gp.playSE(4);
-                    break;
             }
+            else{
+                text="You can't carry more items";
+            }
+            gp.ui.addMessage(text);
+            gp.obj[i]=null;
+
         }
     }
 
@@ -370,6 +351,25 @@ public class Player extends Entity{
 
             gp.gameState=gp.dialogState;
             gp.ui.currentDialoguesText="You're level is now " + level+ "!";
+        }
+    }
+
+    public void selectItem(){
+        int itemIndex=gp.ui.getItemIndexOnSlot();
+        //Only gets items not blank slots
+        if(itemIndex< inventory.size()){
+            Entity selectedItem= inventory.get(itemIndex);
+
+            if (selectedItem.type==type_Sword || selectedItem.type==type_Axe){
+                currentWeapon=selectedItem;
+                attack=getAttack();
+
+            }
+            if (selectedItem.type==type_Shield){
+                currentShield=selectedItem;
+                defense=getDefense();
+            }
+            if(selectedItem.type==type_Consumable){}
         }
     }
 

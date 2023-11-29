@@ -302,10 +302,16 @@ public class UI {
 
         //Draws player's item
         for (int i=0;i< gp.player.inventory.size();i++){
+            //Draw Equip Cursor
+            if(gp.player.inventory.get(i)==(gp.player.currentWeapon) || gp.player.inventory.get(i)==(gp.player.currentShield)){
+
+                g2.setColor(new Color(240,190,90));
+                g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
+            }
             g2.drawImage(gp.player.inventory.get(i).down1,slotX,slotY,null);
             slotX+=slotSize;
 
-            if (i == 9 || i ==19 || i==29 || i ==39 || i==49||i==59||i==69||i==79){
+            if (i == 9 || i ==19 || i==29 || i ==39 || i==49){
                 slotX=slotXstart;
                 slotY+=slotSize;
             }

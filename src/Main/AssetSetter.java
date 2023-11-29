@@ -12,26 +12,28 @@ public class AssetSetter {
         this.gp = gp;
     }
     public void setObject(){
-
+        entitySetter(gp.obj,new OBJ_Key(gp),0,75,50);
+        entitySetter(gp.obj,new OBJ_AXE_Bronze(gp),1,77,50);
+        entitySetter(gp.obj,new OBJ_SHIELD(gp),2,75,51);
     }
     public void setNPC(){
-        entitySetter(gp.npc,new NPC_OldMan(gp),0,gp.tileSize*77,gp.tileSize*45);
+        entitySetter(gp.npc,new NPC_OldMan(gp),0,77,45);
     }
 
     public void setEnemy(){
-        entitySetter(gp.enem,new ENEM_Slime(gp),0,gp.tileSize*75,gp.tileSize*50);
-        entitySetter(gp.enem,new ENEM_Slime(gp),1,gp.tileSize*70,gp.tileSize*55);
-        entitySetter(gp.enem,new ENEM_Slime(gp),2,gp.tileSize*71,gp.tileSize*55);
-        entitySetter(gp.enem,new ENEM_Slime(gp),3,gp.tileSize*72,gp.tileSize*55);
-        entitySetter(gp.enem,new ENEM_Slime(gp),4,gp.tileSize*73,gp.tileSize*55);
+        entitySetter(gp.enem,new ENEM_Slime(gp),0,75,50);
+        entitySetter(gp.enem,new ENEM_Slime(gp),1,70,55);
+        entitySetter(gp.enem,new ENEM_Slime(gp),2,71,55);
+        entitySetter(gp.enem,new ENEM_Slime(gp),3,72,55);
+        entitySetter(gp.enem,new ENEM_Slime(gp),4,73,55);
     }
 
 
     public void entitySetter(Entity[] entities, Entity entity, int index, int worldX, int worldY) {
         if (index < entities.length && entity != null) {
             entities[index] = entity;
-            entities[index].worldX = worldX;
-            entities[index].worldY = worldY;
+            entities[index].worldX = gp.tileSize*worldX;
+            entities[index].worldY = gp.tileSize*worldY;
         }
     }
 }
