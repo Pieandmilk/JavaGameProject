@@ -20,6 +20,8 @@ public class Sound {
         soundURL[8]= setup("heal_up");
         soundURL[9]= setup("INTRO_TITLE_SONG");
         soundURL[10]= setup("splash");
+        soundURL[11]=setup("level_up");
+        soundURL[12]=setup("click");
     }
 
     public URL setup(String filepath){

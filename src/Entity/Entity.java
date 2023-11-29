@@ -3,6 +3,7 @@ package Entity;
 //This stores variables that will be used in player, monster and NPC classes.
 // Also, This is the Parent Class
 
+import Main.AssetSetter;
 import Main.GamePanel;
 import Main.UtilityTool;
 
@@ -42,10 +43,10 @@ public class Entity {
     //Counters
     public int spriteCounter = 0;
     public int actionLockCounter=0;
-
     public int invincibleCounter=0;
     public int dyingCounter=0;
     public int hpBarCounter=0;
+    public int respawnCounter=0;
 
     //Attributes
     public int type;
@@ -54,19 +55,21 @@ public class Entity {
     public int level;
     public int strength;
     public int attack;
-    public int defence;
+    public int dexterity;
+    public int defense;
     public int exp;
     public int nextLevelExp;
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
-
-
-
-
-    //CHARACTER STATUS
     public int maxLifePoints;
     public int lifePoints;
+
+    //ITEM ATTRIBUTES
+    public int attackValue;
+    public int defenseValue;
+    public String description="";
+
 
     public Entity(GamePanel gp){
         this.gp=gp;
@@ -110,7 +113,11 @@ public class Entity {
         if (this.type==2 && contactPlayer==true){
             if (gp.player.invincibleFrames==false){
                 gp.playSE(6);
-                gp.player.lifePoints-=1;
+                int damage=attack-gp.player.defense;
+                if (damage<0){
+                    damage=0;
+                }
+                gp.player.lifePoints-=damage;
                 gp.player.invincibleFrames=true;
             }
         }
@@ -150,11 +157,16 @@ public class Entity {
 
         if (invincibleFrames==true){
             invincibleCounter++;
+            respawnCounter=0;
+
             if(invincibleCounter>40){
                 invincibleFrames=false;
                 invincibleCounter=0;
             }
+
         }
+
+
     }
 
     public void draw(Graphics2D g2){
@@ -241,6 +253,7 @@ public class Entity {
             if (invincibleFrames==true){
                 hpBarOn=true;
                 hpBarCounter=0;
+
                 changeAlpha(g2,0.4F);
             }
             if (dying== true){

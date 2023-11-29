@@ -14,8 +14,13 @@ public class ENEM_Slime extends Entity {
         type=2;
         name="Green Slime";
         speed= 1;
-        maxLifePoints=6;
+        maxLifePoints=20;
         lifePoints=maxLifePoints;
+        attack=5;
+        defense=0;
+        exp=2;
+
+
         solidArea.x=3;
         solidArea.y=18;
         solidArea.width=42;
