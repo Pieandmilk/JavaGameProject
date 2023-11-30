@@ -5,6 +5,7 @@ import java.awt.*;
 public class EventHandler {
     GamePanel gp;
     EventRect eventRect[][];
+    UI ui;
 
     int previousEventX,previousEventY;
     boolean canTouchEvent = false;
@@ -97,10 +98,13 @@ public class EventHandler {
     }
     public void healingWaters(int col,int row,int gameState){
         if (gp.keyH.ePressed == true){
-            gp.gameState=gameState;
+            gp.gameState= gameState;
             gp.playSE(8);
             gp.ui.currentDialoguesText= "You drink water from the well\nYou feel refreshed";
             gp.player.lifePoints=gp.player.maxLifePoints;
+
+            //creating the transaction here
+            gp.gameState = gp.pauseState;
 
         }
     }

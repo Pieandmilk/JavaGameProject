@@ -2,6 +2,8 @@ package Main;
 
 import Entity.Entity;
 
+import java.awt.*;
+
 public class CollisionChecker {
 
     GamePanel gp;
@@ -75,6 +77,7 @@ public class CollisionChecker {
                 //Gets objects solid area position
                 gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
                 gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+
 
                 //Checks if entity is colliding with object
                 switch (entity.direction) {

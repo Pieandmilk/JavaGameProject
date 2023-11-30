@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
     public int maxWorldRow;
 
 
+
     //FPS
     int FPS =60;
 
@@ -50,8 +51,6 @@ public class GamePanel extends JPanel implements Runnable{
     private int aliveEnemies = 0;
     private int respawnCounter=0;
 
-    public ArrayList <Entity> projectileList = new ArrayList<>();
-
     /*We sort the order of the array. The entity that has the lowest worldY comes in index 0.
     We draw entities in order of their worldY value.(The fewer, the earlier)*/
     ArrayList<Entity> entityList = new ArrayList<>();
@@ -63,7 +62,10 @@ public class GamePanel extends JPanel implements Runnable{
     public final int pauseState=2;
     public final int dialogState=3;
     public final int characterState=4;
-
+    //****PJA
+    public final int inGameSettings=5;
+    //****PJA
+    public int transactionState=6;
 
 
 
@@ -143,18 +145,6 @@ public class GamePanel extends JPanel implements Runnable{
                     }
                 }
             }
-            for(int i = 0; i< projectileList.size();i++){
-
-                if (projectileList.get(i) != null){
-                    if (projectileList.get(i).alive==true){
-                        projectileList.get(i).update();
-                    }
-                    if (projectileList.get(i).alive==false){
-                        projectileList.remove(i);
-
-                    }
-                }
-            }
             if (aliveEnemies==0){
                 respawnCounter++;
                 if (respawnCounter>2000){
@@ -206,11 +196,6 @@ public class GamePanel extends JPanel implements Runnable{
             for(int i = 0; i< enem.length;i++){
                 if (enem[i] != null){
                     entityList.add(enem[i]);
-                }
-            }
-            for(int i = 0; i< projectileList.size();i++){
-                if (projectileList.get(i) != null){
-                    entityList.add(projectileList.get(i));
                 }
             }
 

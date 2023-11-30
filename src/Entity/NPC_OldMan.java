@@ -46,6 +46,7 @@ public class NPC_OldMan extends Entity{
         dialogues[1]="Have you come to this island to find your worth?";
         dialogues[2]="I used to be a young lad like you but I'm a bit to old now";
         dialogues[3]="Good luck on your adventures.";
+
     }
     public void setAction(){
         actionLockCounter++;

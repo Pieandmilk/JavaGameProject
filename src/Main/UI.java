@@ -77,7 +77,7 @@ public class UI {
             }
             //Pause State
             else if (gp.gameState==gp.pauseState){
-                drawPause();
+                drawPauseMenu();
             }
 
             //Dialog State
@@ -85,11 +85,21 @@ public class UI {
 
                 drawDialogScreen();
             }
+            //***PJA
+            //in Game settings State
+            else if(gp.gameState == gp.inGameSettings){
+                drawGameSettings();
+            }
 
             //Character State
             else if (gp.gameState==gp.characterState) {
                 drawCharacterScreen();
                 drawInventoryScreen();
+            }
+            //******PJA
+            //Transaction State
+            else if(gp.gameState==gp.transactionState){
+                transaction();
             }
 
         }
@@ -157,26 +167,218 @@ public class UI {
             g2.drawString(">",x-(gp.tileSize/2),y);
         }
     }
-
-    public void drawPause(){
-
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
+    //******PJA
+    //in game pause with options
+    public void drawPauseMenu(){
+        //options box
         g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+        //sub window
+        int frameX = gp.tileSize*5;
+        int frameY = gp.tileSize/2;
+        int frameWidth = gp.tileSize*12;
+        int frameHeight = gp.tileSize*11;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
-        String text="PAUSED";
-
+        //options title
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 70F));
+        String text = "PAUSED";
         int x = getXforCenterOfScreen(text);
-        int y = gp.screenHeight/2;
+        int y = gp.screenHeight/4;
+        //Shadow
+        g2.setColor(Color.blue);
+        g2.drawString(text, x + 4, y + 4);
+        //main color
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+        //System.out.print(commandNum);
 
-        g2.drawString(text,x,y);
+        //Check Wallet
+        if(commandNum==0){
+            text = "CHECK WALLET";
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+            x = getXforCenterOfScreen(text);
+            y += gp.tileSize*1.75;
+            //Shadow
+            g2.setColor(Color.GREEN);
+            g2.drawString(text, x + 4, y + 4);
+            //main Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+        }else{
+            text = "CHECK WALLET";
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40F));
+            x = getXforCenterOfScreen(text);
+            y += gp.tileSize*1.75;
+            //Shadow
+            g2.setColor(Color.blue);
+            g2.drawString(text, x + 4, y + 4);
+            //main Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+        }
+        //Save Current Game
+        if(commandNum==1){
+            text = "SAVE";
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+            x = getXforCenterOfScreen(text);
+            y += gp.tileSize*1.75;
+            //Shadow
+            g2.setColor(Color.GREEN);
+            g2.drawString(text, x + 4, y + 4);
+            //main Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+        }else{
+            text = "SAVE";
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40F));
+            x = getXforCenterOfScreen(text);
+            y += gp.tileSize*1.75;
+            //Shadow
+            g2.setColor(Color.blue);
+            g2.drawString(text, x + 4, y + 4);
+            //main Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+        }
+        //GAME SETTINGS
+        if(commandNum==2){
+            text = "GAME SETTINGS";
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+            x = getXforCenterOfScreen(text);
+            y += gp.tileSize*1.75;
+            //Shadow
+            g2.setColor(Color.GREEN);
+            g2.drawString(text, x + 4, y + 4);
+            //main Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+        }else{
+            text = "GAME SETTINGS";
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40F));
+            x = getXforCenterOfScreen(text);
+            y += gp.tileSize*1.75;
+            //Shadow
+            g2.setColor(Color.blue);
+            g2.drawString(text, x + 4, y + 4);
+            //main Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+        }
+        //back to main menu
+        if(commandNum==3){
+            text = "MAIN MENU";
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+            x = getXforCenterOfScreen(text);
+            y += gp.tileSize*1.75;
+            //Shadow
+            g2.setColor(Color.GREEN);
+            g2.drawString(text, x + 4, y + 4);
+            //main Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+        }else{
+            text = "MAIN MENU";
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40F));
+            x = getXforCenterOfScreen(text);
+            y += gp.tileSize*1.75;
+            //Shadow
+            g2.setColor(Color.blue);
+            g2.drawString(text, x + 4, y + 4);
+            //main Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+        }
     }
+
+    //****PJA
+    //in game settings
+    public void drawGameSettings(){
+        //options box
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+        //sub window
+        int frameX = gp.tileSize*4;
+        int frameY = gp.tileSize/2;
+        int frameWidth = gp.tileSize*14;
+        int frameHeight = gp.tileSize*11;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        //options title
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60F));
+        String text = "GAME SETTINGS";
+        int x = getXforCenterOfScreen(text);
+        int y = gp.screenHeight/4;
+        //Shadow
+        g2.setColor(Color.blue);
+        g2.drawString(text, x + 4, y + 4);
+        //main color
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        //full screen or not
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
+        text = "SCREEN MODE";
+        x = getXforOffSetScreen(text);
+        y += gp.tileSize * 2;
+        //Shadow
+        g2.setColor(Color.blue);
+        g2.drawString(text, x + 4, y + 4);
+        //main Color
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+//14:37 Still working on this**************
+        int textX = frameX +gp.tileSize*10;
+        int textY = frameY + gp.tileSize*5;
+        g2.drawRect(textX, textY,12, textY);
+
+        if(commandNum==0) {
+            g2.setColor(Color.red);
+            g2.drawString(">", x - (gp.tileSize / 2), y);
+        }
+
+        //Sound Level
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
+        text = "MUSIC LEVEL";
+        x = getXforOffSetScreen(text);
+        y += gp.tileSize * 2;
+        //Shadow
+        g2.setColor(Color.blue);
+        g2.drawString(text, x + 4, y + 4);
+        //main Color
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        if (commandNum == 1) {
+            g2.setColor(Color.red);
+            g2.drawString(">", x - (gp.tileSize / 2), y);
+        }
+
+        //full screen or not
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
+        text = "SOUND FX LEVEL";
+        x = getXforOffSetScreen(text);
+        y += gp.tileSize * 2;
+        //Shadow
+        g2.setColor(Color.blue);
+        g2.drawString(text, x + 4, y + 4);
+        //main Color
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        if (commandNum == 2) {
+            g2.setColor(Color.red);
+            g2.drawString(">", x - (gp.tileSize / 2), y);
+        }
+    }
+
+
 
     public void drawDialogScreen(){
         //Window
         int x= gp.tileSize*2;
-        int y= (gp.screenHeight/2)+90;
+        int y= (gp.screenHeight/2)+60;
         int width= gp.screenWidth -(gp.tileSize*4);
-        int height= gp.tileSize *3;
+        int height= gp.tileSize *4;
 
         drawSubWindow(x,y,width,height);
         x+=gp.tileSize;
@@ -286,7 +488,7 @@ public class UI {
     }
 
     public void drawInventoryScreen(){
-
+        System.out.println(slotCol+" col and row" + slotRow);
         //Frame
         int frameX=gp.tileSize*10;
         int frameY=gp.tileSize;
@@ -351,6 +553,12 @@ public class UI {
             }
         }
     }
+
+    //*****PJA
+    //tranaction
+    public void transaction(){
+
+    }
     public int getItemIndexOnSlot(){
         int itemIndex=slotCol+(slotRow*10);
         return itemIndex;
@@ -402,6 +610,12 @@ public class UI {
         int textLength= (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
 
         int x = tailX-textLength;
+        return x;
+    }
+    public int getXforOffSetScreen(String text){
+        int textLength= (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+
+        int x = gp.screenWidth/2-(textLength);
         return x;
     }
 
