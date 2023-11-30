@@ -2,6 +2,7 @@ package Enemies;
 
 import Entity.Entity;
 import Main.GamePanel;
+import Objects.OBJ_Rock;
 
 import java.util.Random;
 
@@ -19,6 +20,7 @@ public class ENEM_Slime extends Entity {
         attack=5;
         defense=0;
         exp=2;
+        projectile= new OBJ_Rock(gp);
 
 
         solidArea.x=3;
@@ -29,6 +31,7 @@ public class ENEM_Slime extends Entity {
         solidAreaDefaultY=solidArea.y;
 
         getImage();
+
 
     }
     public void getImage(){
@@ -68,6 +71,7 @@ public class ENEM_Slime extends Entity {
                 direction="right";
             }
             actionLockCounter=0;
+
         }
     }
     public void damageReaction(){
