@@ -1,5 +1,6 @@
 package Main;
 
+import Enemies.ENEM_Rock_Elemental;
 import Enemies.ENEM_Slime;
 import Entity.Entity;
 import Entity.NPC_OldMan;
@@ -15,6 +16,7 @@ public class AssetSetter {
         entitySetter(gp.obj,new OBJ_Key(gp),0,75,50);
         entitySetter(gp.obj,new OBJ_AXE_Bronze(gp),1,77,50);
         entitySetter(gp.obj,new OBJ_SHIELD(gp),2,75,51);
+        entitySetter(gp.obj,new OBJ_POTION_Healing_Small(gp),3,75,52);
     }
     public void setNPC(){
         entitySetter(gp.npc,new NPC_OldMan(gp),0,77,45);
@@ -25,7 +27,7 @@ public class AssetSetter {
         entitySetter(gp.enem,new ENEM_Slime(gp),1,70,55);
         entitySetter(gp.enem,new ENEM_Slime(gp),2,71,55);
         entitySetter(gp.enem,new ENEM_Slime(gp),3,72,55);
-        entitySetter(gp.enem,new ENEM_Slime(gp),4,73,55);
+        entitySetter(gp.enem,new ENEM_Rock_Elemental(gp),4,73,55);
     }
 
 

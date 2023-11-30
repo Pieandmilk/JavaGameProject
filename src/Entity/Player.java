@@ -2,10 +2,12 @@ package Entity;
 
 import Main.GamePanel;
 import Main.KeyHandler;
+import Objects.OBJ_Fireball;
 import Objects.OBJ_Key;
 import Objects.OBJ_SHIELD_Old_Mans;
 import Objects.OBJ_SWORD_Wooden;
 
+import javax.management.ObjectName;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -66,6 +68,7 @@ public class Player extends Entity{
         coin=0;
         currentWeapon= new OBJ_SWORD_Wooden(gp);
         currentShield= new OBJ_SHIELD_Old_Mans(gp);
+        projectile= new OBJ_Fireball(gp);
         attack=getAttack();//Total attack is calculated by strength and weapon
         defense=getDefense();//Total defense is calculated by dexterity and shield
 
@@ -106,18 +109,35 @@ public class Player extends Entity{
     }
 
     public void getPlayerAttackImage(){
-        attackUp1=setup("/player/player_attack_up_1",gp.tileSize,gp.tileSize*2);
-        attackUp2=setup("/player/player_attack_up_2",gp.tileSize,gp.tileSize*2);
-        attackUp3=setup("/player/player_attack_up_1",gp.tileSize,gp.tileSize*2);
-        attackDown1=setup("/player/player_attack_down_1",gp.tileSize,gp.tileSize*2);
-        attackDown2=setup("/player/player_attack_down_2",gp.tileSize,gp.tileSize*2);
-        attackDown3=setup("/player/player_attack_down_2",gp.tileSize,gp.tileSize*2);
-        attackLeft1=setup("/player/player_attack_left_1",gp.tileSize*2,gp.tileSize);
-        attackLeft2=setup("/player/player_attack_left_2",gp.tileSize*2,gp.tileSize);
-        attackLeft3=setup("/player/player_attack_left_1",gp.tileSize*2,gp.tileSize);
-        attackRight1=setup("/player/player_attack_right_1",gp.tileSize*2,gp.tileSize);
-        attackRigth2=setup("/player/player_attack_right_2",gp.tileSize*2,gp.tileSize);
-        attackRight3=setup("/player/player_attack_right_3",gp.tileSize*2,gp.tileSize);
+        if(currentWeapon.type==type_Sword){
+            attackUp1=setup("/player/player_attack_up_1",gp.tileSize,gp.tileSize*2);
+            attackUp2=setup("/player/player_attack_up_2",gp.tileSize,gp.tileSize*2);
+            attackUp3=setup("/player/player_attack_up_1",gp.tileSize,gp.tileSize*2);
+            attackDown1=setup("/player/player_attack_down_1",gp.tileSize,gp.tileSize*2);
+            attackDown2=setup("/player/player_attack_down_2",gp.tileSize,gp.tileSize*2);
+            attackDown3=setup("/player/player_attack_down_2",gp.tileSize,gp.tileSize*2);
+            attackLeft1=setup("/player/player_attack_left_1",gp.tileSize*2,gp.tileSize);
+            attackLeft2=setup("/player/player_attack_left_2",gp.tileSize*2,gp.tileSize);
+            attackLeft3=setup("/player/player_attack_left_1",gp.tileSize*2,gp.tileSize);
+            attackRight1=setup("/player/player_attack_right_1",gp.tileSize*2,gp.tileSize);
+            attackRigth2=setup("/player/player_attack_right_2",gp.tileSize*2,gp.tileSize);
+            attackRight3=setup("/player/player_attack_right_3",gp.tileSize*2,gp.tileSize);
+        }
+        if(currentWeapon.type==type_Axe){
+            attackUp1=setup("/player/player_attack_up_axe1",gp.tileSize,gp.tileSize*2);
+            attackUp2=setup("/player/player_attack_up_axe2",gp.tileSize,gp.tileSize*2);
+            attackUp3=setup("/player/player_attack_up_axe3",gp.tileSize,gp.tileSize*2);
+            attackDown1=setup("/player/player_attack_down_axe1",gp.tileSize,gp.tileSize*2);
+            attackDown2=setup("/player/player_attack_down_axe2",gp.tileSize,gp.tileSize*2);
+            attackDown3=setup("/player/player_attack_down_axe2",gp.tileSize,gp.tileSize*2);
+            attackLeft1=setup("/player/player_attack_left_axe1",gp.tileSize*2,gp.tileSize);
+            attackLeft2=setup("/player/player_attack_left_axe2",gp.tileSize*2,gp.tileSize);
+            attackLeft3=setup("/player/player_attack_left_axe3",gp.tileSize*2,gp.tileSize);
+            attackRight1=setup("/player/player_attack_right_axe1",gp.tileSize*2,gp.tileSize);
+            attackRigth2=setup("/player/player_attack_right_axe2",gp.tileSize*2,gp.tileSize);
+            attackRight3=setup("/player/player_attack_right_axe3",gp.tileSize*2,gp.tileSize);
+        }
+
 
     }
 
@@ -200,12 +220,23 @@ public class Player extends Entity{
             }
         }
 
+        if (gp.keyH.shootKeyPressed==true && projectile.alive==false && shotAvailableCounter==30){
+            //SETS DEFAULT VALUE
+            projectile.set(worldX,worldY,direction,true,this);
+            gp.projectileList.add(projectile);
+            gp.playSE(15);
+            shotAvailableCounter=0;//resets the counter
+        }
+
         if (invincibleFrames==true){
             invincibleCounter++;
             if(invincibleCounter>60){
                 invincibleFrames=false;
                 invincibleCounter=0;
             }
+        }
+        if (shotAvailableCounter<30){
+            shotAvailableCounter++;
         }
     }
     public void attacking(){
@@ -245,7 +276,7 @@ public class Player extends Entity{
 
             //Checks enemy collision with the updated worldX worldY and solidArea
             int enemyIndex = gp.cChecker.checkEntity(this,gp.enem);
-            damageEnemy(enemyIndex);
+            damageEnemy(enemyIndex, attack);
 
             //After Checking collision, restore the original data
             worldX= currentWorldX;
@@ -292,7 +323,13 @@ public class Player extends Entity{
                 gp.npc[i].speak();
             }
             else{
-                gp.playSE(7);
+                if(currentWeapon.type==type_Sword){
+                    gp.playSE(7);
+                }
+                if(currentWeapon.type==type_Axe){
+                    gp.playSE(13);
+                }
+
                 attacking = true;
             }
         }
@@ -300,7 +337,7 @@ public class Player extends Entity{
 
     public void contactEnemy(int i){
         if (i!=999){
-            if(invincibleFrames==false){
+            if(invincibleFrames==false && gp.enem[i].dying == false){
                 gp.playSE(6);
                 int damage=gp.enem[i].attack-defense;
                 if (damage<0){
@@ -313,7 +350,7 @@ public class Player extends Entity{
         }
     }
 
-    public void damageEnemy(int i){
+    public void damageEnemy(int i, int attack){
         if (i!=999){
             if(gp.enem[i].invincibleFrames == false){
 
@@ -363,13 +400,16 @@ public class Player extends Entity{
             if (selectedItem.type==type_Sword || selectedItem.type==type_Axe){
                 currentWeapon=selectedItem;
                 attack=getAttack();
-
+                getPlayerAttackImage();
             }
             if (selectedItem.type==type_Shield){
                 currentShield=selectedItem;
                 defense=getDefense();
             }
-            if(selectedItem.type==type_Consumable){}
+            if(selectedItem.type==type_Consumable){
+                selectedItem.use(this);
+                inventory.remove(itemIndex);
+            }
         }
     }
 

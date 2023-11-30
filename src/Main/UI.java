@@ -174,9 +174,9 @@ public class UI {
     public void drawDialogScreen(){
         //Window
         int x= gp.tileSize*2;
-        int y= (gp.screenHeight/2)+60;
+        int y= (gp.screenHeight/2)+90;
         int width= gp.screenWidth -(gp.tileSize*4);
-        int height= gp.tileSize *4;
+        int height= gp.tileSize *3;
 
         drawSubWindow(x,y,width,height);
         x+=gp.tileSize;
@@ -286,7 +286,7 @@ public class UI {
     }
 
     public void drawInventoryScreen(){
-        System.out.println(slotCol+" col and row" + slotRow);
+
         //Frame
         int frameX=gp.tileSize*10;
         int frameY=gp.tileSize;

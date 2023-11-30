@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Entity {
+public abstract class Entity {
     GamePanel gp;
     public boolean collision = false;
 
@@ -47,6 +47,7 @@ public class Entity {
     public int dyingCounter=0;
     public int hpBarCounter=0;
     public int respawnCounter=0;
+    public int shotAvailableCounter=0;
 
     //Attributes
     public String name;
@@ -61,13 +62,20 @@ public class Entity {
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Projectile projectile;
+    public int maxMana;
+    public int mana;
     public int maxLifePoints;
     public int lifePoints;
+
 
     //ITEM ATTRIBUTES
     public int attackValue;
     public int defenseValue;
     public String description="";
+    public int useCost;
+
+    //Type
     public int type;//type 0 player, 1 npc, 2 enemies,
     public final int type_Player=0;
     public final int type_NPC=1;
@@ -110,6 +118,7 @@ public class Entity {
                 break;
         }
     };
+    public void use(Entity entity){}
     public void update(){
         setAction();
         collisionOn=false;
@@ -120,15 +129,7 @@ public class Entity {
         boolean contactPlayer =gp.cChecker.checkPlayer(this);
 
         if (this.type==2 && contactPlayer==true){
-            if (gp.player.invincibleFrames==false){
-                gp.playSE(6);
-                int damage=attack-gp.player.defense;
-                if (damage<0){
-                    damage=0;
-                }
-                gp.player.lifePoints-=damage;
-                gp.player.invincibleFrames=true;
-            }
+            damagePlayer(attack);
         }
 
 
@@ -174,8 +175,23 @@ public class Entity {
             }
 
         }
+        if (shotAvailableCounter<30){
+            shotAvailableCounter++;
+        }
 
 
+    }
+
+    public void damagePlayer(int attack){
+        if (gp.player.invincibleFrames==false){
+            gp.playSE(6);
+            int damage=attack-gp.player.defense;
+            if (damage<0){
+                damage=0;
+            }
+            gp.player.lifePoints-=damage;
+            gp.player.invincibleFrames=true;
+        }
     }
 
     public void draw(Graphics2D g2){
@@ -310,7 +326,7 @@ public class Entity {
             changeAlpha(g2,1F);
         }
         if (dyingCounter>i*8){
-            dying=false;
+
             alive=false;
         }
 
