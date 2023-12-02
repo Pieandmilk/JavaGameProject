@@ -9,7 +9,7 @@ public class Sound {
     Clip clip;
     URL soundURL[]= new URL[30];
     public Sound(){
-        soundURL[0]= setup("BlueBoyAdventure");
+        soundURL[0]= setup("PLAYERLAND");
         soundURL[1]= setup("coin");
         soundURL[2]= setup("powerup");
         soundURL[3]= setup("unlock");

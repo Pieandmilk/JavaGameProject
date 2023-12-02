@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TileManager {
     GamePanel gp;
     public Tile[] tile;
-    public int[][] mapTileNum;
+    public int[][][] mapTileNum;
 
     ArrayList<String> fileNames= new ArrayList<>();
     ArrayList<String> collisionStatus= new ArrayList<>();
@@ -44,8 +44,8 @@ public class TileManager {
 
         //INITIALIZE THE TITLE ARRAY BASED ON THE fileNAMES size
         tile = new Tile[fileNames.size()];
-
         getTileImage();
+
 
         //GET THE maxWorldCol & ROW
         is = getClass().getResourceAsStream("/maps/MAP_FINAL.txt");
@@ -56,17 +56,23 @@ public class TileManager {
             String maxTile[]=line2.split(" ");
             gp.maxWorldCol=maxTile.length;
             gp.maxWorldRow=maxTile.length;
-            mapTileNum= new int[gp.maxWorldCol][gp.maxWorldRow];
+            mapTileNum= new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
             br.close();
         }catch (IOException e){
             System.out.println("EXCEPTION!");
         }
 
-
-
-
-        loadMap("/maps/MAP_FINAL.txt");
+        loadMap("/maps/MAP_FINAL.txt",0);
+        loadMap("/maps/Player_House_Interior.txt",1);
+        loadMap("/maps/Player_House_Interior_2nd_Floor.txt",2);
+        loadMap("/maps/WEAPON_SHOP.txt",3);
+        loadMap("/maps/NPC_Big_House.txt",4);
+        loadMap("/maps/NPC_Big_House.txt",5);
+        loadMap("/maps/NPC_Normal_House.txt",6);
+        loadMap("/maps/NPC_Normal_House.txt",7);
+        loadMap("/maps/NPC_Normal_House.txt",8);
+        loadMap("/maps/NPC_Normal_House.txt",9);
     }
     public void getTileImage(){
         for (int i=0; i < fileNames.size();i++){
@@ -82,12 +88,6 @@ public class TileManager {
             setUp(i,fileName,collision);
         }
 
-/*            setUp(0,"grass",false);
-            setUp(1,"wall",true);
-            setUp(2,"water",true);
-            setUp(3,"earth",false);
-            setUp(4,"tree",true);
-            setUp(5,"sand",false);*/
     }
     public void setUp(int index, String imageName, boolean collision){
         UtilityTool uTool = new UtilityTool();
@@ -102,7 +102,7 @@ public class TileManager {
         }
 
     }
-    public void loadMap(String filePathMap){
+    public void loadMap(String filePathMap, int map){
         try{
             InputStream is = getClass().getResourceAsStream(filePathMap);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -114,7 +114,7 @@ public class TileManager {
                 while(col< gp.maxWorldCol){
                     String numbers[]= line.split(" ");
                     int num = Integer.parseInt(numbers[col]); // String converts to integer
-                    mapTileNum[col][row] =num;
+                    mapTileNum[map][col][row] =num;
                     col++;
                 }
                 if (col== gp.maxWorldCol){
@@ -134,7 +134,7 @@ public class TileManager {
 
 
         while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow){
-            int tileNum = mapTileNum[worldCol][worldRow];
+            int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
 
             //Checking world coordinates
             int worldX= worldCol * gp.tileSize;

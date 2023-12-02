@@ -26,6 +26,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     public int maxWorldCol;
     public int maxWorldRow;
+    public int maxMap=20;
+    public int currentMap=2;
 
 
     //FPS
@@ -45,9 +47,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     //PLAYER AND OBJECT
     public Player player= new Player(this,keyH);
-    public Entity obj[] = new Entity[20];//initiates how many objects are present in the screen
-    public  Entity npc[]= new Entity[10];
-    public Entity enem[]= new Entity[20];
+    public Entity obj[][] = new Entity[maxMap][20];//initiates how many objects are present in the screen
+    public  Entity npc[][]= new Entity[maxMap][10];
+    public Entity enem[][]= new Entity[maxMap][20];
     private int aliveEnemies = 0;
     private int respawnCounter=0;
 
@@ -67,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int inGameSettingsState=5;
     //****PJA
     public final int transactionState=6;
+    public final int gameOverState = 7;
 
 
 
@@ -92,6 +95,23 @@ public class GamePanel extends JPanel implements Runnable{
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    public void TryAgain(){
+        player.setDefaultPositions();
+        player.restoreLife();
+        aSetter.setNPC();
+        aSetter.setEnemy();
+        ui.gp.playMusic(0);
+    }
+    public void Restart(){
+        player.setDefaultValues();
+        player.setDefaultPositions();
+        player.restoreLife();
+        player.setItems();
+        aSetter.setObject();
+        aSetter.setNPC();
+        aSetter.setEnemy();
     }
 
     @Override
@@ -129,21 +149,21 @@ public class GamePanel extends JPanel implements Runnable{
             player.update();
 
             //NPC
-            for(int i = 0; i< npc.length;i++){
-                if (npc[i] != null){
-                    npc[i].update();
+            for(int i = 0; i< npc[1].length;i++){
+                if (npc[currentMap][i] != null){
+                    npc[currentMap][i].update();
                 }
             }
-            for(int i = 0; i< enem.length;i++){
+            for(int i = 0; i< enem[1].length;i++){
 
-                if (enem[i] != null){
-                    if (enem[i].alive==true && enem[i].dying==false){
+                if (enem[currentMap][i] != null){
+                    if (enem[currentMap][i].alive==true && enem[currentMap][i].dying==false){
                         aliveEnemies++;
-                        enem[i].update();
+                        enem[currentMap][i].update();
                     }
-                    if (enem[i].alive==false){
-                        enem[i].checkDrop();
-                        enem[i] = null;
+                    if (enem[currentMap][i].alive==false){
+                        enem[currentMap][i].checkDrop();
+                        enem[currentMap][i] = null;
 
                     }
                 }
@@ -197,20 +217,20 @@ public class GamePanel extends JPanel implements Runnable{
             entityList.add(player);
 
             //NPC
-            for (int i = 0;i < npc.length; i++){
-                if (npc[i]!=null){
-                    entityList.add(npc[i]);
+            for (int i = 0;i < npc[1].length; i++){
+                if (npc[currentMap][i]!=null){
+                    entityList.add(npc[currentMap][i]);
                 }
             }
             //Objects
-            for (int i= 0; i<obj.length; i++){
-                if(obj[i]!=null){
-                    entityList.add(obj[i]);
+            for (int i= 0; i<obj[1].length; i++){
+                if(obj[currentMap][i]!=null){
+                    entityList.add(obj[currentMap][i]);
                 }
             }
-            for(int i = 0; i< enem.length;i++){
-                if (enem[i] != null){
-                    entityList.add(enem[i]);
+            for(int i = 0; i< enem[1].length;i++){
+                if (enem[currentMap][i] != null){
+                    entityList.add(enem[currentMap][i]);
                 }
             }
             for(int i = 0; i< projectileList.size();i++){
