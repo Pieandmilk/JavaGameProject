@@ -61,6 +61,9 @@ public class Player extends Entity{
         level=1;
         maxLifePoints=10;
         lifePoints=maxLifePoints;
+        maxMana=6;
+        mana=maxMana;
+        ammo=0;
         strength=1;
         dexterity=1;
         exp=0;
@@ -183,6 +186,7 @@ public class Player extends Entity{
 
             //Check eventRect collision
             gp.eHandler.checkEvent();
+            gp.eMusicHandler.checkEventMusic();
 
 
             //IF collision is false, player can move
@@ -218,11 +222,20 @@ public class Player extends Entity{
                 }
                 spriteCounter=0;
             }
+            if(lifePoints>maxLifePoints){
+                lifePoints=maxLifePoints;
+            }
+            if(mana>maxMana){
+                mana=maxMana;
+            }
         }
 
-        if (gp.keyH.shootKeyPressed==true && projectile.alive==false && shotAvailableCounter==30){
+        if (gp.keyH.shootKeyPressed==true && projectile.alive==false && shotAvailableCounter==30 && projectile.hasResource(this)==true){
             //SETS DEFAULT VALUE
             projectile.set(worldX,worldY,direction,true,this);
+
+            //subtracts
+            projectile.subtractResource(this);
             gp.projectileList.add(projectile);
             gp.playSE(15);
             shotAvailableCounter=0;//resets the counter
@@ -299,20 +312,26 @@ public class Player extends Entity{
     public void pickUpObject(int i){
         //indicating that it touch an object
         if (i != 999){
-            String text;
-
-            if (inventory.size()!=maxInventorySize){
-                inventory.add(gp.obj[i]);
-                gp.playSE(1);
-                text="You picked up a " + gp.obj[i].name + "!";
-
+            //Pickup only items
+            if(gp.obj[i].type== type_PickUpOnly){
+                gp.obj[i].use(this);
+                gp.obj[i]=null;
             }
+            //Inventory Items
             else{
-                text="You can't carry more items";
-            }
-            gp.ui.addMessage(text);
-            gp.obj[i]=null;
+                String text;
+                if (inventory.size()!=maxInventorySize){
+                    inventory.add(gp.obj[i]);
+                    gp.playSE(1);
+                    text="You picked up a " + gp.obj[i].name + "!";
 
+                }
+                else{
+                    text="You can't carry more items";
+                }
+                gp.ui.addMessage(text);
+                gp.obj[i]=null;
+            }
         }
     }
 

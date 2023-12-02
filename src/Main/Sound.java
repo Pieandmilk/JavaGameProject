@@ -25,6 +25,11 @@ public class Sound {
         soundURL[13]=setup("axe_swing");
         soundURL[14]= setup("Open_Bottle");
         soundURL[15]=setup("fireball");
+        soundURL[16]=setup("mana");
+        soundURL[17]=setup("LAWRENCE_TOWN");
+        soundURL[18]=setup("beach");
+        soundURL[19]=setup("SOUTH_ISLAND");
+        soundURL[20]=setup("NORTH_ISLAND");
     }
 
     public URL setup(String filepath){

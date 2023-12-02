@@ -1,7 +1,5 @@
 package Main;
 
-import java.awt.*;
-
 public class EventHandler {
     GamePanel gp;
     EventRect eventRect[][];
@@ -45,21 +43,23 @@ public class EventHandler {
         if (distance> gp.tileSize){
             canTouchEvent = true;
         }
-        if (canTouchEvent){
+        if (canTouchEvent==true){
             if (hit(27,16,"right")==true){
                 damagePit(27,16,gp.dialogState);
             }
             if (hit(64,55,"any")==true){
-                healingWaters(64,55,gp.dialogState);
+                rejuvenatingWaters(64,55,gp.dialogState);
             }
+            //SAILING
             if (hit(7,46,"any")==true){
                 sailBoatSouth(7,46,gp.dialogState);
             }
-            else if (hit(61,79,"any")==true){
+            if (hit(61,79,"any")==true){
                 sailBoatNorth(61,79,gp.dialogState);
             }
 
         }
+
     }
     public boolean hit(int col, int row, String reqDirection){
         boolean hit = false;
@@ -95,12 +95,13 @@ public class EventHandler {
         canTouchEvent=false;
         /*eventRect[col][row].eventDone=true;*/
     }
-    public void healingWaters(int col,int row,int gameState){
+    public void rejuvenatingWaters(int col, int row, int gameState){
         if (gp.keyH.ePressed == true){
             gp.gameState=gameState;
             gp.playSE(8);
             gp.ui.currentDialoguesText= "You drink water from the well\nYou feel refreshed";
             gp.player.lifePoints=gp.player.maxLifePoints;
+            gp.player.mana=gp.player.maxMana;
 
         }
     }
@@ -113,6 +114,7 @@ public class EventHandler {
             gp.player.worldX=gp.tileSize*7;
             gp.player.worldY=gp.tileSize*47;
 
+
         }
     }
     public void sailBoatSouth(int col,int row,int gameState){
@@ -122,7 +124,9 @@ public class EventHandler {
             gp.ui.currentDialoguesText= "Sailed to South part of the island!";
             gp.player.worldX=gp.tileSize*61;
             gp.player.worldY=gp.tileSize*80;
-
+            gp.stopMusic();
+            gp.playMusic(18);
         }
     }
+
 }
