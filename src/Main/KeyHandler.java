@@ -50,6 +50,10 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState==gp.transactionState){
            transactionState(code);
         }
+
+        else if (gp.gameState == gp.gameOverState){
+            gameOverState(code);
+        }
     }
 
     public void titleState(int code){
@@ -82,16 +86,16 @@ public class KeyHandler implements KeyListener {
         }
     }
     public void playState(int code){
-        if (code == KeyEvent.VK_W){
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
             upPressed=true;
         }
-        if (code == KeyEvent.VK_S){
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
             downPressed=true;
         }
-        if (code == KeyEvent.VK_A){
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT){
             leftPressed=true;
         }
-        if (code == KeyEvent.VK_D){
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
             rightPressed=true;
         }
 
@@ -256,20 +260,48 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+    public void gameOverState(int code){
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0){
+                gp.ui.commandNum = 1;
+            }
+        }
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > 1){
+                gp.ui.commandNum = 0;
+            }
+        }
+        if (code == KeyEvent.VK_ENTER){
+            if (gp.ui.commandNum == 0){
+                gp.stopMusic();
+                gp.gameState = gp.playState;
+                gp.TryAgain();
+            }
+            else if (gp.ui.commandNum == 1){
+                gp.gameState = gp.titleState;
+                gp.stopMusic();
+                gp.setupGame();
+                gp.Restart();
+            }
+        }
+    }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_W){
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
             upPressed=false;
         }
-        if (code == KeyEvent.VK_S){
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
             downPressed=false;
         }
-        if (code == KeyEvent.VK_A){
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT){
             leftPressed=false;
         }
-        if (code == KeyEvent.VK_D){
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
             rightPressed=false;
         }
         if (code == KeyEvent.VK_F){

@@ -2,7 +2,7 @@ package Main;
 
 public class EventMusicHandler {
     GamePanel gp;
-    EventRect eventRect[][];
+    EventRect eventRect[][][];
 
     int previousEventX,previousEventY;
     boolean canTouchEvent = false;
@@ -10,19 +10,20 @@ public class EventMusicHandler {
 
     public  EventMusicHandler (GamePanel gp){
         this.gp=gp;
-        eventRect= new EventRect[gp.maxWorldCol][gp.maxWorldRow];
+        eventRect= new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
+        int map=0;
         int col=0;
         int row=0;
 
-        while (col< gp.maxWorldCol && row< gp.maxWorldRow){
-            eventRect [col][row]= new EventRect();
-            eventRect[col][row].x= 9;
-            eventRect[col][row].y=9;
-            eventRect[col][row].width=30;
-            eventRect[col][row].height=30;
-            eventRect[col][row].eventRectDefaultX= eventRect[col][row].x;
-            eventRect[col][row].eventRectDefaultY= eventRect[col][row].y;
+        while (map < gp.maxMap && col< gp.maxWorldCol && row< gp.maxWorldRow){
+            eventRect [map][col][row]= new EventRect();
+            eventRect[map][col][row].x= 9;
+            eventRect[map][col][row].y=9;
+            eventRect[map][col][row].width=30;
+            eventRect[map][col][row].height=30;
+            eventRect[map][col][row].eventRectDefaultX= eventRect[map][col][row].x;
+            eventRect[map][col][row].eventRectDefaultY= eventRect[map][col][row].y;
 
             col++;
             if (col== gp.maxWorldCol){
@@ -58,35 +59,39 @@ public class EventMusicHandler {
 
 
     }
-    public boolean hit(int col, int row, String reqDirection){
+    public boolean hit(int map,int col, int row, String reqDirection){
         boolean hit = false;
-        //Getting current player solid area pos
-        gp.player.solidArea.x=gp.player.worldX + gp.player.solidArea.x;
-        gp.player.solidArea.y=gp.player.worldY + gp.player.solidArea.y;
 
-        //Getting eventRect solid area position
-        eventRect[col][row].x= col*gp.tileSize+ eventRect[col][row].x;
-        eventRect[col][row].y= row*gp.tileSize+ eventRect[col][row].y;
+        if(map==gp.currentMap){
+            //Getting current player solid area pos
+            gp.player.solidArea.x=gp.player.worldX + gp.player.solidArea.x;
+            gp.player.solidArea.y=gp.player.worldY + gp.player.solidArea.y;
 
-        if (gp.player.solidArea.intersects(eventRect[col][row] )&& eventRect[col][row].eventDone==false){
-            if(gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")){
-                hit = true;
+            //Getting eventRect solid area position
+            eventRect[map][col][row].x= col*gp.tileSize+ eventRect[map][col][row].x;
+            eventRect[map][col][row].y= row*gp.tileSize+ eventRect[map][col][row].y;
 
-                previousEventX = gp.player.worldX;
-                previousEventY = gp.player.worldY;
+            if (gp.player.solidArea.intersects(eventRect[map][col][row] )&& eventRect[map][col][row].eventDone==false){
+                if(gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")){
+                    hit = true;
+
+                    previousEventX = gp.player.worldX;
+                    previousEventY = gp.player.worldY;
+                }
             }
+
+            gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+            gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+            eventRect[map][col][row].x=eventRect[map][col][row].eventRectDefaultX;
+            eventRect[map][col][row].y=eventRect[map][col][row].eventRectDefaultY;
         }
 
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
-        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
-        eventRect[col][row].x=eventRect[col][row].eventRectDefaultX;
-        eventRect[col][row].y=eventRect[col][row].eventRectDefaultY;
 
         return hit;
     }
 
 
-    public void enteringLawrenceville(int col, int row){
+    public void enteringLawrenceville(){
         String text= "LAWRENCEVILLE";
         gp.stopMusic();
         gp.playMusic(17);
@@ -94,26 +99,26 @@ public class EventMusicHandler {
     }
     public void LawrenceVille(){
         //entering lawrenceville
-        if (hit(70,54,"left")==true){
-            enteringLawrenceville(70,54);
+        if (hit(0,70,54,"left")==true){
+            enteringLawrenceville();
         }
-        else  if (hit(70,55,"left")==true){
-            enteringLawrenceville(70,55);
+        else  if (hit(0,70,55,"left")==true){
+            enteringLawrenceville();
         }
-        else if (hit(70,56,"left")==true){
-            enteringLawrenceville(70,56);
+        else if (hit(0,70,56,"left")==true){
+            enteringLawrenceville();
         }
-        else if (hit(70,57,"left")==true){
-            enteringLawrenceville(70,57);
+        else if (hit(0,70,57,"left")==true){
+            enteringLawrenceville();
         }
-        else if (hit(70,58,"left")==true){
-            enteringLawrenceville(70,58);
+        else if (hit(0,70,58,"left")==true){
+            enteringLawrenceville();
         }
-        else if (hit(70,59,"left")==true){
-            enteringLawrenceville(70,59);
+        else if (hit(0,70,59,"left")==true){
+            enteringLawrenceville();
         }
     }
-    public void enteringPlayerLand(int col, int row){
+    public void enteringPlayerLand(){
         String text= "PLAYERLAND";
         gp.stopMusic();
         gp.playMusic(0);
@@ -122,26 +127,26 @@ public class EventMusicHandler {
     }
     public void PlayerLand(){
         //EnteringPlayerLand
-        if (hit(70,54,"right")==true){
-            enteringPlayerLand(70,54);
+        if (hit(0,70,54,"right")==true){
+            enteringPlayerLand();
         }
-        else if (hit(70,55,"right")==true){
-            enteringPlayerLand(70,55);
+        else if (hit(0,70,55,"right")==true){
+            enteringPlayerLand();
         }
-        else if (hit(70,56,"right")==true){
-            enteringPlayerLand(70,56);
+        else if (hit(0,70,56,"right")==true){
+            enteringPlayerLand();
         }
-        else if (hit(70,57,"right")==true){
-            enteringPlayerLand(70,57);
+        else if (hit(0,70,57,"right")==true){
+            enteringPlayerLand();
         }
-        else if (hit(70,58,"right")==true){
-            enteringPlayerLand(70,58);
+        else if (hit(0,70,58,"right")==true) {
+            enteringPlayerLand();
         }
-        else if (hit(70,59,"right")==true){
-            enteringPlayerLand(70,59);
+        else if (hit(0,70,59,"right")==true){
+            enteringPlayerLand();
         }
     }
-    public void enteringBeach(int col, int row){
+    public void enteringBeach(){
         String text= "Beach";
         gp.stopMusic();
         gp.playMusic(18);
@@ -150,21 +155,21 @@ public class EventMusicHandler {
     }
     public void Beach(){
         //entering beach
-        if (hit(58,62,"down")==true){
-            enteringBeach(58,62);
+        if (hit(0,58,62,"down")==true){
+            enteringBeach();
         }
-        else if (hit(59,62,"down")==true){
-            enteringBeach(59,62);
+        else if (hit(0,59,62,"down")==true){
+            enteringBeach();
         }
-        else if (hit(58,62,"up")==true){
-            enteringLawrenceville(58,62);
+        else if (hit(0,58,62,"up")==true){
+            enteringLawrenceville();
         }
-        else if (hit(59,62,"up")==true){
-            enteringLawrenceville(59,562);
+        else if (hit(0,59,62,"up")==true){
+            enteringLawrenceville();
         }
     }
 
-    public void enteringSouthIsland(int col, int row){
+    public void enteringSouthIsland(){
         String text= "SOUTH ISLAND";
         gp.stopMusic();
         gp.playMusic(19);
@@ -174,35 +179,35 @@ public class EventMusicHandler {
 
     public void SouthIsland(){
         //entering south
-        if (hit(45,53,"left")==true){
-            enteringSouthIsland(45,53);
+        if (hit(0,45,53,"left")==true){
+            enteringSouthIsland();
         }
-        else if (hit(45,54,"left")==true){
-            enteringSouthIsland(45,54);
+        else if (hit(0,45,54,"left")==true){
+            enteringSouthIsland();
         }
-        else if (hit(45,55,"left")==true){
-            enteringSouthIsland(45,55);
+        else if (hit(0,45,55,"left")==true){
+            enteringSouthIsland();
         }
-        else if (hit(45,56,"left")==true){
-            enteringSouthIsland(45,56);
+        else if (hit(0,45,56,"left")==true){
+            enteringSouthIsland();
         }
 
         //leaving south
-        else if (hit(45,53,"right")==true){
-            enteringLawrenceville(45,53);
+        else if (hit(0,45,53,"right")==true){
+            enteringLawrenceville();
         }
-        else if (hit(45,54,"right")==true){
-            enteringLawrenceville(45,54);
+        else if (hit(0,45,54,"right")==true){
+            enteringLawrenceville();
         }
-        else if (hit(45,55,"right")==true){
-            enteringLawrenceville(45,55);
+        else if (hit(0,45,55,"right")==true){
+            enteringLawrenceville();
         }
-        else if (hit(45,56,"right")==true){
-            enteringLawrenceville(45,56);
+        else if (hit(0,45,56,"right")==true){
+            enteringLawrenceville();
         }
     }
 
-    public void enteringNorthIsland(int col, int row){
+    public void enteringNorthIsland(){
         String text= "NORTH ISLAND";
         gp.stopMusic();
         gp.playMusic(20);
@@ -210,14 +215,14 @@ public class EventMusicHandler {
     }
 
     public void NorthIsland(){
-        if (hit(11,47,"right")==true){
-            enteringNorthIsland(11,47);
+        if (hit(0,11,47,"right")==true){
+            enteringNorthIsland();
         }
-        else if (hit(11,48,"right")==true){
-            enteringNorthIsland(11,48);
+        else if (hit(0,11,48,"right")==true){
+            enteringNorthIsland();
         }
-        else if (hit(11,49,"right")==true){
-            enteringNorthIsland(11,49);
+        else if (hit(0,11,49,"right")==true){
+            enteringNorthIsland();
         }
     }
 }

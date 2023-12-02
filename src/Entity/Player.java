@@ -52,8 +52,8 @@ public class Player extends Entity{
         setItems();
     }
     public void setDefaultValues(){
-        worldX=gp.tileSize * 77;
-        worldY=gp.tileSize * 44;
+        worldX=gp.tileSize * 29;
+        worldY=gp.tileSize * 31;
         speed= 4;
         direction= "down";
 
@@ -69,21 +69,27 @@ public class Player extends Entity{
         exp=0;
         nextLevelExp=5;
         coin=0;
-        currentWeapon= new OBJ_SWORD_Wooden(gp);
+       currentWeapon= new OBJ_SWORD_Wooden(gp);
         currentShield= new OBJ_SHIELD_Old_Mans(gp);
         projectile= new OBJ_Fireball(gp);
         attack=getAttack();//Total attack is calculated by strength and weapon
         defense=getDefense();//Total defense is calculated by dexterity and shield
-
+    }
+    public void setDefaultPositions(){
+        worldX=gp.tileSize * 29;
+        worldY=gp.tileSize * 31;
+        direction= "down";
+    }
+    public void restoreLife(){
+        lifePoints=maxLifePoints;
+        invincibleFrames = false;
     }
 
     public void setItems(){
+        inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new OBJ_Key(gp));
-
-
-
     }
 
   public int getAttack(){
@@ -251,6 +257,10 @@ public class Player extends Entity{
         if (shotAvailableCounter<30){
             shotAvailableCounter++;
         }
+
+        if (lifePoints <= 0){
+            gp.gameState = gp.gameOverState;
+        }
     }
     public void attacking(){
         spriteCounter++;
@@ -313,24 +323,24 @@ public class Player extends Entity{
         //indicating that it touch an object
         if (i != 999){
             //Pickup only items
-            if(gp.obj[i].type== type_PickUpOnly){
-                gp.obj[i].use(this);
-                gp.obj[i]=null;
+            if(gp.obj[gp.currentMap][i].type== type_PickUpOnly){
+                gp.obj[gp.currentMap][i].use(this);
+                gp.obj[gp.currentMap][i]=null;
             }
             //Inventory Items
             else{
                 String text;
                 if (inventory.size()!=maxInventorySize){
-                    inventory.add(gp.obj[i]);
+                    inventory.add(gp.obj[gp.currentMap][i]);
                     gp.playSE(1);
-                    text="You picked up a " + gp.obj[i].name + "!";
+                    text="You picked up a " + gp.obj[gp.currentMap][i].name + "!";
 
                 }
                 else{
                     text="You can't carry more items";
                 }
                 gp.ui.addMessage(text);
-                gp.obj[i]=null;
+                gp.obj[gp.currentMap][i]=null;
             }
         }
     }
@@ -339,7 +349,7 @@ public class Player extends Entity{
         if (gp.keyH.enterPressed==true){
             if (i != 999){
                 gp.gameState=gp.dialogState;
-                gp.npc[i].speak();
+                gp.npc[gp.currentMap][i].speak();
             }
             else{
                 if(currentWeapon.type==type_Sword){
@@ -356,9 +366,9 @@ public class Player extends Entity{
 
     public void contactEnemy(int i){
         if (i!=999){
-            if(invincibleFrames==false && gp.enem[i].dying == false){
+            if(invincibleFrames==false && gp.enem[gp.currentMap][i].dying == false){
                 gp.playSE(6);
-                int damage=gp.enem[i].attack-defense;
+                int damage=gp.enem[gp.currentMap][i].attack-defense;
                 if (damage<0){
                     damage=0;
                 }
@@ -371,24 +381,24 @@ public class Player extends Entity{
 
     public void damageEnemy(int i, int attack){
         if (i!=999){
-            if(gp.enem[i].invincibleFrames == false){
+            if(gp.enem[gp.currentMap][i].invincibleFrames == false){
 
                 gp.playSE(5);
 
-                int damage=attack-gp.enem[i].defense;
+                int damage=attack-gp.enem[gp.currentMap][i].defense;
                 if (damage<0){
                     damage=0;
                 }
                 gp.ui.addMessage(damage+ " DAMAGE!");
-                gp.enem[i].lifePoints -=damage;
-                gp.enem[i].invincibleFrames = true;
-                gp.enem[i].damageReaction();
+                gp.enem[gp.currentMap][i].lifePoints -=damage;
+                gp.enem[gp.currentMap][i].invincibleFrames = true;
+                gp.enem[gp.currentMap][i].damageReaction();
 
-                if (gp.enem[i].lifePoints<=0){
-                    gp.enem[i].dying=true;
-                    gp.ui.addMessage("Killed the "+ gp.enem[i].name);
-                    gp.ui.addMessage("EXP Gained +"+ gp.enem[i].exp);
-                    exp+=gp.enem[i].exp;
+                if (gp.enem[gp.currentMap][i].lifePoints<=0){
+                    gp.enem[gp.currentMap][i].dying=true;
+                    gp.ui.addMessage("Killed the "+ gp.enem[gp.currentMap][i].name);
+                    gp.ui.addMessage("EXP Gained +"+ gp.enem[gp.currentMap][i].exp);
+                    exp+=gp.enem[gp.currentMap][i].exp;
                     checkLevelUp();
                 }
             }
