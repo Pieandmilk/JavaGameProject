@@ -34,6 +34,8 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState== gp.pauseState){
             pauseState(code);
 
+        } else if (gp.gameState==gp.inGameSettingsState) {
+            inGameSettingsState(code);
         }
         //Dialogue State
         else if(gp.gameState== gp.dialogState){
@@ -43,6 +45,10 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState==gp.characterState) {
             characterState(code);
 
+        }
+        //Transaction State
+        else if(gp.gameState==gp.transactionState){
+           transactionState(code);
         }
     }
 
@@ -97,7 +103,7 @@ public class KeyHandler implements KeyListener {
                 checkDrawTime=false;
             }
         }
-        if (code == KeyEvent.VK_P){
+        if (code == KeyEvent.VK_ESCAPE){
             gp.gameState=gp.pauseState;
         }
         if (code == KeyEvent.VK_ENTER){
@@ -114,8 +120,82 @@ public class KeyHandler implements KeyListener {
         }
     }
     public void pauseState(int code){
-        if (code == KeyEvent.VK_P){
-            gp.gameState= gp.playState;
+        if (gp.gameState == gp.pauseState) {
+            if (code == KeyEvent.VK_ESCAPE) {
+                gp.gameState = gp.playState;
+            }
+            if (code == KeyEvent.VK_UP) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 3;
+                }
+            }
+            if (code == KeyEvent.VK_DOWN) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 3) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+        }
+
+        //edit actions **************
+        if (code == KeyEvent.VK_ENTER) {
+            //CheckWallet
+            if (gp.ui.commandNum == 0) {
+
+            }
+            //save
+            if (gp.ui.commandNum == 1) {
+
+            }
+            //option settings
+            if (gp.ui.commandNum == 2) {
+                gp.gameState = gp.inGameSettingsState; //go from paused to settings
+                gp.ui.commandNum = 0;
+            }
+            //MainMenu
+            if (gp.ui.commandNum == 3) {
+                gp.gameState = gp.titleState; // Change game state to title state
+                gp.ui.commandNum = 0;
+                gp.stopMusic();
+            }
+
+
+            if (code == KeyEvent.VK_UP) {
+                gp.ui.commandNum--;
+
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 2;
+                }
+            }
+            if (code == KeyEvent.VK_DOWN) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 2) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+        }
+    }
+    public void inGameSettingsState(int code){
+        //Game settings State
+        if (gp.gameState == gp.inGameSettingsState) {
+            if(code == KeyEvent.VK_ESCAPE){
+                gp.gameState = gp.pauseState;
+            }
+
+            if (code == KeyEvent.VK_UP) {
+                gp.ui.commandNum--;
+
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 2;
+                }
+            }
+            if (code == KeyEvent.VK_DOWN) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 2) {
+                    gp.ui.commandNum = 0;
+                }
+            }
         }
     }
     public void dialogueState(int code){
@@ -160,6 +240,22 @@ public class KeyHandler implements KeyListener {
             gp.player.selectItem();
         }
     }
+    //TRANSACTIONS
+    public void transactionState(int code){
+        if (code == KeyEvent.VK_W){
+            upPressed=true;
+        }
+        if (code == KeyEvent.VK_S){
+            downPressed=true;
+        }
+        if (code == KeyEvent.VK_A){
+            leftPressed=true;
+        }
+        if (code == KeyEvent.VK_D){
+            rightPressed=true;
+        }
+    }
+
 
     @Override
     public void keyReleased(KeyEvent e) {

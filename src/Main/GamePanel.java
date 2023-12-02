@@ -40,11 +40,12 @@ public class GamePanel extends JPanel implements Runnable{
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
+    public EventMusicHandler eMusicHandler = new EventMusicHandler(this);
     Thread gameThread;
 
     //PLAYER AND OBJECT
     public Player player= new Player(this,keyH);
-    public Entity obj[] = new Entity[10];//initiates how many objects are present in the screen
+    public Entity obj[] = new Entity[20];//initiates how many objects are present in the screen
     public  Entity npc[]= new Entity[10];
     public Entity enem[]= new Entity[20];
     private int aliveEnemies = 0;
@@ -63,6 +64,9 @@ public class GamePanel extends JPanel implements Runnable{
     public final int pauseState=2;
     public final int dialogState=3;
     public final int characterState=4;
+    public final int inGameSettingsState=5;
+    //****PJA
+    public final int transactionState=6;
 
 
 
@@ -138,6 +142,7 @@ public class GamePanel extends JPanel implements Runnable{
                         enem[i].update();
                     }
                     if (enem[i].alive==false){
+                        enem[i].checkDrop();
                         enem[i] = null;
 
                     }

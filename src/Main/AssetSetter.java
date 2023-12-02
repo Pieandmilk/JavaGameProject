@@ -13,10 +13,12 @@ public class AssetSetter {
         this.gp = gp;
     }
     public void setObject(){
-        entitySetter(gp.obj,new OBJ_Key(gp),0,75,50);
+        entitySetter(gp.obj,new OBJ_Coin_Gold(gp),0,75,50);
         entitySetter(gp.obj,new OBJ_AXE_Bronze(gp),1,77,50);
         entitySetter(gp.obj,new OBJ_SHIELD(gp),2,75,51);
         entitySetter(gp.obj,new OBJ_POTION_Healing_Small(gp),3,75,52);
+        entitySetter(gp.obj,new OBJ_Heart(gp),4,75,53);
+        entitySetter(gp.obj,new OBJ_Mana(gp),5,75,54);
     }
     public void setNPC(){
         entitySetter(gp.npc,new NPC_OldMan(gp),0,77,45);

@@ -3,7 +3,6 @@ package Entity;
 //This stores variables that will be used in player, monster and NPC classes.
 // Also, This is the Parent Class
 
-import Main.AssetSetter;
 import Main.GamePanel;
 import Main.UtilityTool;
 
@@ -65,11 +64,13 @@ public abstract class Entity {
     public Projectile projectile;
     public int maxMana;
     public int mana;
+    public int ammo;
     public int maxLifePoints;
     public int lifePoints;
 
 
     //ITEM ATTRIBUTES
+    public int value;
     public int attackValue;
     public int defenseValue;
     public String description="";
@@ -84,6 +85,7 @@ public abstract class Entity {
     public final int type_Axe=4;
     public final int type_Shield=5;
     public final int type_Consumable=6;
+    public final int type_PickUpOnly=7;
 
 
 
@@ -119,6 +121,17 @@ public abstract class Entity {
         }
     };
     public void use(Entity entity){}
+    public void checkDrop(){}
+    public void dropItem(Entity droppedItem){
+        for(int i =0; i<gp.obj.length;i++){
+            if(gp.obj[i]==null){
+                gp.obj[i]=droppedItem;
+                gp.obj[i].worldX=worldX;
+                gp.obj[i].worldY=worldY;
+                break;
+            }
+        }
+    }
     public void update(){
         setAction();
         collisionOn=false;
@@ -285,7 +298,7 @@ public abstract class Entity {
                 dyingAnimation(g2);
 
             }
-            g2.drawImage(image, screenX , screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, screenX , screenY, null);
             changeAlpha(g2,1F);
         }
     }

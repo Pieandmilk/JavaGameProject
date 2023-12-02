@@ -5,11 +5,12 @@ import Main.GamePanel;
 
 public class OBJ_POTION_Healing_Small extends Entity {
     GamePanel gp;
-    int value= 4;
+
     public OBJ_POTION_Healing_Small(GamePanel gp) {
         super(gp);
         this.gp=gp;
         type= type_Consumable;
+        value= 4;
         down1=setup("/objects/Health_Potion_Small",gp.tileSize,gp.tileSize);
         name="Small Healing Potion";
         description="["+name+"]\nA potion that can heal you fairly.\nHeals for ["+value+"]";
