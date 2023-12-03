@@ -130,6 +130,28 @@ public class EventHandler {
                 gettingOutNPCBigHouse2();
             }
 
+            if (hit(0,25,63,"up")==true){
+                gettingInNPCBigHouse3();
+            }
+            if (hit(0,26,63,"up")==true){
+                gettingInNPCBigHouse3();
+            }
+            if (hit(18,30,32,"down")==true){
+                gettingOutNPCBigHouse3();
+            }
+
+            if (hit(0,15,63,"up")==true){
+                gettingInNPCBigHouse4();
+            }
+            if (hit(0,14,63,"up")==true){
+                gettingInNPCBigHouse4();
+            }
+            if (hit(19,30,32,"down")==true){
+                gettingOutNPCBigHouse4();
+            }
+
+
+
             //getting in npc normal house1
             if (hit(0,79,57,"up")==true){
                 gettingInNPCNormalHouse1();
@@ -361,6 +383,32 @@ public class EventHandler {
         gp.player.worldY=gp.tileSize*31;
     }
 
+    public void gettingInNPCBigHouse3(){
+        gp.currentMap=18;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*30;
+        gp.player.worldY=gp.tileSize*32;
+    }
+    public void gettingOutNPCBigHouse3(){
+        gp.currentMap=0;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*26;
+        gp.player.worldY=gp.tileSize*63;
+    }
+
+    public void gettingInNPCBigHouse4(){
+        gp.currentMap=19;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*30;
+        gp.player.worldY=gp.tileSize*32;
+    }
+    public void gettingOutNPCBigHouse4(){
+        gp.currentMap=0;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*15;
+        gp.player.worldY=gp.tileSize*63;
+    }
+
 
     public void gettingInNPCNormalHouse1(){
         gp.currentMap=6;
@@ -412,6 +460,7 @@ public class EventHandler {
         gp.player.worldX=gp.tileSize*59;
         gp.player.worldY=gp.tileSize*32;
     }
+
 
     public void gettingInNPCNormalHouse5(){
         gp.currentMap=13;
