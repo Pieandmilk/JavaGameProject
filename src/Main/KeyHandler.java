@@ -77,7 +77,6 @@ public class KeyHandler implements KeyListener {
                 gp.playMusic(0);
             }
             else if(gp.ui.commandNum==1){
-                //ADD LOADING FEATURE
 
             }
             if(gp.ui.commandNum==2){

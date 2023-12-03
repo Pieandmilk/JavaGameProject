@@ -30,6 +30,8 @@ public class Sound {
         soundURL[18]=setup("beach");
         soundURL[19]=setup("SOUTH_ISLAND");
         soundURL[20]=setup("NORTH_ISLAND");
+        soundURL[21]=setup("DOOR OPEN_1");
+        soundURL[22]=setup("STAIR_SOUND");
     }
 
     public URL setup(String filepath){

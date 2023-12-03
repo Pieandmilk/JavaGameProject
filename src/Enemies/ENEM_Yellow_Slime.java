@@ -6,21 +6,21 @@ import Objects.*;
 
 import java.util.Random;
 
-public class ENEM_Slime extends Entity {
+public class ENEM_Yellow_Slime extends Entity {
     GamePanel gp;
 
-    public ENEM_Slime(GamePanel gp) {
+    public ENEM_Yellow_Slime(GamePanel gp) {
         super(gp);
-        this.gp=gp;
+        this.gp = gp;
         type= type_Enemy;
-        name="Green Slime";
+        name="Red Slime";
         speed= 1;
-        maxLifePoints = 20;
-        lifePoints = maxLifePoints;
+        maxLifePoints = 30;
+        lifePoints=maxLifePoints;
         attack=5;
         defense=0;
         exp=2;
-        projectile= new OBJ_Rock(gp);
+        projectile = new OBJ_Rock(gp);
 
 
         solidArea.x=3;
@@ -35,18 +35,18 @@ public class ENEM_Slime extends Entity {
 
     }
     public void getImage(){
-        up1=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        up2=setup("/enemies/greenslime_down_2",gp.tileSize,gp.tileSize);
-        up3=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        down1=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        down2=setup("/enemies/greenslime_down_2",gp.tileSize,gp.tileSize);
-        down3=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        left1=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        left2=setup("/enemies/greenslime_down_2",gp.tileSize,gp.tileSize);
-        left3=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        right1=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        right2=setup("/enemies/greenslime_down_2",gp.tileSize,gp.tileSize);
-        right3=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
+        up1=setup("/enemies/Yellowslime_down_1",gp.tileSize,gp.tileSize);
+        up2=setup("/enemies/Yellowslime_down_2",gp.tileSize,gp.tileSize);
+        up3=setup("/enemies/Yellowslime_down_1",gp.tileSize,gp.tileSize);
+        down1=setup("/enemies/Yellowslime_down_1",gp.tileSize,gp.tileSize);
+        down2=setup("/enemies/Yellowslime_down_2",gp.tileSize,gp.tileSize);
+        down3=setup("/enemies/Yellowslime_down_1",gp.tileSize,gp.tileSize);
+        left1=setup("/enemies/Yellowslime_down_1",gp.tileSize,gp.tileSize);
+        left2=setup("/enemies/Yellowslime_down_2",gp.tileSize,gp.tileSize);
+        left3=setup("/enemies/Yellowslime_down_1",gp.tileSize,gp.tileSize);
+        right1=setup("/enemies/Yellowslime_down_1",gp.tileSize,gp.tileSize);
+        right2=setup("/enemies/Yellowslime_down_2",gp.tileSize,gp.tileSize);
+        right3=setup("/enemies/Yellowslime_down_1",gp.tileSize,gp.tileSize);
 
     }
     public void setAction(){

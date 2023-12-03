@@ -131,7 +131,7 @@ public class UI {
         //Title Name
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,80F));
 
-        String text= "CASINO CHRONICLES";
+        String text= "SLIMEY CHRONICLES";
         int x = getXforCenterOfScreen(text);
         int y = gp.screenHeight/2-(gp.tileSize*4);
 

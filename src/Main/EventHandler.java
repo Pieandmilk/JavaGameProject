@@ -55,6 +55,15 @@ public class EventHandler {
             if (hit(0,64,55,"any")==true){
                 rejuvenatingWaters(gp.dialogState);
             }
+            //Signs
+            if (hit(0,42,53,"any")==true){
+                sign1(0,42,53,gp.dialogState);
+            }
+
+            if (hit(0,77,57,"any")==true){
+                sign2(0,77,56,gp.dialogState);
+            }
+
             //SAILING
             if (hit(0,7,46,"any")==true){
                 sailBoatSouth(gp.dialogState);
@@ -198,7 +207,7 @@ public class EventHandler {
         if (gp.keyH.ePressed == true){
             gp.gameState=gameState;
             gp.playSE(10);
-            gp.ui.currentDialoguesText= "Sailed to North part of the island!";
+            gp.ui.currentDialoguesText= "Sailed to North Part of the Island.";
             gp.player.worldX=gp.tileSize*7;
             gp.player.worldY=gp.tileSize*47;
         }
@@ -207,7 +216,7 @@ public class EventHandler {
         if (gp.keyH.ePressed == true){
             gp.gameState=gameState;
             gp.playSE(10);
-            gp.ui.currentDialoguesText= "Sailed to South part of the island!";
+            gp.ui.currentDialoguesText= "Sailed to Derby Beach!";
             gp.player.worldX=gp.tileSize*61;
             gp.player.worldY=gp.tileSize*80;
             gp.stopMusic();
@@ -217,64 +226,76 @@ public class EventHandler {
 
     public void outsidePlayerHouseFront(){
             gp.currentMap=0;
+            gp.playSE(21);
             gp.player.worldX=gp.tileSize*77;
             gp.player.worldY=gp.tileSize*43;
     }
     public void outsidePlayerHouseBack(){
         gp.currentMap=0;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*77;
         gp.player.worldY=gp.tileSize*38;
     }
     public void gettingInPlayerHouseFront(){
         gp.currentMap=1;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*30;
         gp.player.worldY=gp.tileSize*31;
     }
     public void gettingInPlayerHouseBack(){
         gp.currentMap=1;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*29;
         gp.player.worldY=gp.tileSize*16;
     }
 
     public void gettingUpPlayerHouse(){
         gp.currentMap=2;
+        gp.playSE(22);
         gp.player.worldX=gp.tileSize*31;
         gp.player.worldY=gp.tileSize*26;
     }
     public void gettingDownPlayerHouse(){
         gp.currentMap=1;
+        gp.playSE(22);
         gp.player.worldX=gp.tileSize*20;
         gp.player.worldY=gp.tileSize*26;
     }
     public void gettingInWeaponShop(){
         gp.currentMap=3;
-        gp.ui.addAnnouncement("WEAPON SHOP");
+        gp.playSE(21);
+        gp.ui.addAnnouncement("WEAPON BLACKSMITH SHOP");
         gp.player.worldX=gp.tileSize*28;
         gp.player.worldY=gp.tileSize*31;
     }
     public void gettingOutWeaponShop(){
         gp.currentMap=0;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*56;
         gp.player.worldY=gp.tileSize*50;
     }
     public void gettingInNPCBigHouse1(){
         gp.currentMap=4;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*30;
         gp.player.worldY=gp.tileSize*32;
     }
     public void gettingInNPCBigHouse2(){
         gp.currentMap=5;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*30;
         gp.player.worldY=gp.tileSize*32;
     }
     public void gettingOutNPCBigHouse1(){
         gp.currentMap=0;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*56;
         gp.player.worldY=gp.tileSize*42;
     }
 
     public void gettingOutNPCBigHouse2(){
         gp.currentMap=0;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*50;
         gp.player.worldY=gp.tileSize*31;
     }
@@ -282,46 +303,65 @@ public class EventHandler {
 
     public void gettingInNPCNormalHouse1(){
         gp.currentMap=6;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*28;
         gp.player.worldY=gp.tileSize*31;
     }
     public void gettingOutNPCNormalHouse1(){
         gp.currentMap=0;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*79;
         gp.player.worldY=gp.tileSize*57;
     }
 
     public void gettingInNPCNormalHouse2(){
         gp.currentMap=7;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*28;
         gp.player.worldY=gp.tileSize*31;
     }
     public void gettingOutNPCNormalHouse2(){
         gp.currentMap=0;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*49;
         gp.player.worldY=gp.tileSize*54;
     }
 
     public void gettingInNPCNormalHouse3(){
         gp.currentMap=8;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*28;
         gp.player.worldY=gp.tileSize*31;
     }
     public void gettingOutNPCNormalHouse3(){
         gp.currentMap=0;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*48;
         gp.player.worldY=gp.tileSize*48;
     }
     public void gettingInNPCNormalHouse4(){
         gp.currentMap=9;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*28;
         gp.player.worldY=gp.tileSize*31;
     }
     public void gettingOutNPCNormalHouse4(){
         gp.currentMap=0;
+        gp.playSE(21);
         gp.player.worldX=gp.tileSize*59;
         gp.player.worldY=gp.tileSize*32;
     }
 
+    public void sign1(int map,int col,int row,int gamestate){
+        gp.gameState=gamestate;
+        gp.ui.currentDialoguesText="Welcome to lawrence town!!";
+        canTouchEvent=false;
+    }
+
+    public void sign2(int map,int col,int row,int gamestate) {
+        gp.gameState = gamestate;
+        gp.ui.currentDialoguesText = "Kerby's House!!";
+        canTouchEvent = false;
+    }
 
 }

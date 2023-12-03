@@ -6,21 +6,21 @@ import Objects.*;
 
 import java.util.Random;
 
-public class ENEM_Slime extends Entity {
+public class ENEM_Red_Slime extends Entity {
     GamePanel gp;
 
-    public ENEM_Slime(GamePanel gp) {
+    public ENEM_Red_Slime(GamePanel gp) {
         super(gp);
-        this.gp=gp;
+        this.gp = gp;
         type= type_Enemy;
-        name="Green Slime";
+        name="Red Slime";
         speed= 1;
-        maxLifePoints = 20;
-        lifePoints = maxLifePoints;
+        maxLifePoints = 30;
+        lifePoints=maxLifePoints;
         attack=5;
         defense=0;
         exp=2;
-        projectile= new OBJ_Rock(gp);
+        projectile = new OBJ_Rock(gp);
 
 
         solidArea.x=3;
