@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
     //PLAYER AND OBJECT
     public Player player= new Player(this,keyH);
     public Entity obj[][] = new Entity[maxMap][20];//initiates how many objects are present in the screen
-    public  Entity npc[][]= new Entity[maxMap][10];
+    public  Entity npc[][]= new Entity[maxMap][20];
     public Entity enem[][]= new Entity[maxMap][20];
     private int aliveEnemies = 0;
     private int respawnCounter=0;

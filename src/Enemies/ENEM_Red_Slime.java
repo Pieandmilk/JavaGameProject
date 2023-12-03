@@ -35,18 +35,18 @@ public class ENEM_Red_Slime extends Entity {
 
     }
     public void getImage(){
-        up1=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        up2=setup("/enemies/greenslime_down_2",gp.tileSize,gp.tileSize);
-        up3=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        down1=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        down2=setup("/enemies/greenslime_down_2",gp.tileSize,gp.tileSize);
-        down3=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        left1=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        left2=setup("/enemies/greenslime_down_2",gp.tileSize,gp.tileSize);
-        left3=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        right1=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
-        right2=setup("/enemies/greenslime_down_2",gp.tileSize,gp.tileSize);
-        right3=setup("/enemies/greenslime_down_1",gp.tileSize,gp.tileSize);
+        up1=setup("/enemies/Redslime_down_1",gp.tileSize,gp.tileSize);
+        up2=setup("/enemies/Redslime_down_2",gp.tileSize,gp.tileSize);
+        up3=setup("/enemies/Redslime_down_1",gp.tileSize,gp.tileSize);
+        down1=setup("/enemies/Redslime_down_1",gp.tileSize,gp.tileSize);
+        down2=setup("/enemies/Redslime_down_2",gp.tileSize,gp.tileSize);
+        down3=setup("/enemies/Redslime_down_1",gp.tileSize,gp.tileSize);
+        left1=setup("/enemies/Redslime_down_1",gp.tileSize,gp.tileSize);
+        left2=setup("/enemies/Redslime_down_2",gp.tileSize,gp.tileSize);
+        left3=setup("/enemies/Redslime_down_1",gp.tileSize,gp.tileSize);
+        right1=setup("/enemies/Redslime_down_1",gp.tileSize,gp.tileSize);
+        right2=setup("/enemies/Redslime_down_2",gp.tileSize,gp.tileSize);
+        right3=setup("/enemies/Redslime_down_1",gp.tileSize,gp.tileSize);
 
     }
     public void setAction(){
@@ -80,13 +80,13 @@ public class ENEM_Red_Slime extends Entity {
     }
     public void checkDrop(){
         int i = new Random().nextInt(100)+1;
-        if(i>1 && i <5){
+        if(i>1 && i <20){
             dropItem(new OBJ_Coin_Gold(gp));
         }
-        if (i>=5&&i<15){
+        if (i>=20&&i<40){
             dropItem(new OBJ_Coin_Silver(gp));
         }
-        if (i>=15&&i<50){
+        if (i>=40&&i<50){
             dropItem(new OBJ_Coin_Copper(gp));
         }
         if (i>=50 && i<75){

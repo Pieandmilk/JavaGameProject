@@ -104,6 +104,16 @@ public class EventHandler {
             if (hit(3,28,31,"down")==true){
                 gettingOutWeaponShop();
             }
+            //weaponshop2
+            if (hit(0,21,69,"up")==true){
+                gettingInWeaponShop2();
+            }
+            if (hit(0,22,69,"up")==true){
+                gettingInWeaponShop2();
+            }
+            if (hit(12,28,31,"down")==true){
+                gettingOutWeaponShop2();
+            }
 
             //getting in npc big house1
             if (hit(0,56,42,"up")==true){
@@ -149,6 +159,57 @@ public class EventHandler {
             }
             if (hit(9,28,31,"down")==true){
                 gettingOutNPCNormalHouse4();
+            }
+            //getting in npc normal house5
+            if (hit(0,32,60,"up")==true){
+                gettingInNPCNormalHouse5();
+            }
+            if (hit(13,28,31,"down")==true){
+                gettingOutNPCNormalHouse5();
+            }
+
+            //getting in npc normal house6
+            if (hit(0,25,57,"up")==true){
+                gettingInNPCNormalHouse6();
+            }
+            if (hit(14,28,31,"down")==true){
+                gettingOutNPCNormalHouse6();
+            }
+            //getting in npc normal house7
+            if (hit(0,13,57,"up")==true){
+                gettingInNPCNormalHouse7();
+            }
+            if (hit(15,28,31,"down")==true){
+                gettingOutNPCNormalHouse7();
+            }
+
+
+            //getting in tournament
+            if (hit(0,53,13,"up")==true){
+                gettingInTournamentBuilding1();
+            }
+            if (hit(10,27,33,"down")==true){
+                gettingOutTournamentBuilding1();
+            }
+            if (hit(10,28,33,"down")==true){
+                gettingOutTournamentBuilding1();
+            }
+            if (hit(10,29,33,"down")==true){
+                gettingOutTournamentBuilding1();
+            }
+
+            //getting in tournament2
+            if (hit(0,20,63,"up")==true){
+                gettingInTournamentBuilding2();
+            }
+            if (hit(11,27,33,"down")==true){
+                gettingOutTournamentBuilding2();
+            }
+            if (hit(11,28,33,"down")==true){
+                gettingOutTournamentBuilding2();
+            }
+            if (hit(11,29,33,"down")==true){
+                gettingOutTournamentBuilding2();
             }
 
 
@@ -352,6 +413,45 @@ public class EventHandler {
         gp.player.worldY=gp.tileSize*32;
     }
 
+    public void gettingInNPCNormalHouse5(){
+        gp.currentMap=13;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*28;
+        gp.player.worldY=gp.tileSize*31;
+    }
+    public void gettingOutNPCNormalHouse5(){
+        gp.currentMap=0;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*32;
+        gp.player.worldY=gp.tileSize*60;
+    }
+
+    public void gettingInNPCNormalHouse6(){
+        gp.currentMap=14;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*28;
+        gp.player.worldY=gp.tileSize*31;
+    }
+    public void gettingOutNPCNormalHouse6(){
+        gp.currentMap=0;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*25;
+        gp.player.worldY=gp.tileSize*57;
+    }
+
+    public void gettingInNPCNormalHouse7(){
+        gp.currentMap=15;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*28;
+        gp.player.worldY=gp.tileSize*31;
+    }
+    public void gettingOutNPCNormalHouse7(){
+        gp.currentMap=0;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*13;
+        gp.player.worldY=gp.tileSize*57;
+    }
+
     public void sign1(int map,int col,int row,int gamestate){
         gp.gameState=gamestate;
         gp.ui.currentDialoguesText="Welcome to lawrence town!!";
@@ -363,5 +463,50 @@ public class EventHandler {
         gp.ui.currentDialoguesText = "Kerby's House!!";
         canTouchEvent = false;
     }
+
+    public void gettingInTournamentBuilding1(){
+        gp.currentMap=10;
+        gp.aSetter.setEnemyTornament1();
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*28;
+        gp.player.worldY=gp.tileSize*32;
+    }
+    public void gettingOutTournamentBuilding1(){
+        gp.currentMap=0;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*53;
+        gp.player.worldY=gp.tileSize*13;
+    }
+
+    public void gettingInTournamentBuilding2(){
+        gp.currentMap=11;
+        gp.aSetter.setEnemyTornament2();
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*28;
+        gp.player.worldY=gp.tileSize*32;
+    }
+    public void gettingOutTournamentBuilding2(){
+        gp.currentMap=0;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*20;
+        gp.player.worldY=gp.tileSize*63;
+    }
+
+    public void gettingInWeaponShop2(){
+        gp.currentMap=12;
+        gp.playSE(21);
+        gp.ui.addAnnouncement("WEAPON BLACKSMITH SHOP");
+        gp.player.worldX=gp.tileSize*28;
+        gp.player.worldY=gp.tileSize*31;
+    }
+
+    public void gettingOutWeaponShop2(){
+        gp.currentMap=0;
+        gp.playSE(21);
+        gp.player.worldX=gp.tileSize*21;
+        gp.player.worldY=gp.tileSize*69;
+    }
+
+
 
 }
