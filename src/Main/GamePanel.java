@@ -98,6 +98,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void TryAgain(){
+        currentMap=2;
         player.setDefaultPositions();
         player.restoreLife();
         aSetter.setNPC();
@@ -105,6 +106,7 @@ public class GamePanel extends JPanel implements Runnable{
         ui.gp.playMusic(0);
     }
     public void Restart(){
+        currentMap=2;
         player.setDefaultValues();
         player.setDefaultPositions();
         player.restoreLife();
