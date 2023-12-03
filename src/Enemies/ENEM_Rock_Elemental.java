@@ -2,7 +2,7 @@ package Enemies;
 
 import Entity.Entity;
 import Main.GamePanel;
-import Objects.OBJ_Rock;
+import Objects.*;
 
 import java.util.Random;
 
@@ -79,6 +79,24 @@ public class ENEM_Rock_Elemental extends Entity {
             projectile.set(gp.currentMap,worldX,worldY,direction,true,this);
             gp.projectileList.add(projectile);
             shotAvailableCounter=0;
+        }
+    }
+    public void checkDrop(){
+        int i = new Random().nextInt(100)+1;
+        if(i>1 && i <10){
+            dropItem(new OBJ_Coin_Gold(gp));
+        }
+        if (i>=10&&i<30){
+            dropItem(new OBJ_Coin_Silver(gp));
+        }
+        if (i>=30&&i<50){
+            dropItem(new OBJ_Coin_Copper(gp));
+        }
+        if (i>=50 && i<75){
+            dropItem(new OBJ_Heart(gp));
+        }
+        if (i>=75 && i<100){
+            dropItem(new OBJ_Mana(gp));
         }
     }
 }

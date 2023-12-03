@@ -73,6 +73,14 @@ public class TileManager {
         loadMap("/maps/NPC_Normal_House.txt",7);
         loadMap("/maps/NPC_Normal_House.txt",8);
         loadMap("/maps/NPC_Normal_House.txt",9);
+        loadMap("/maps/TOURNAMENT_MAP.txt",10);
+        loadMap("/maps/TOURNAMENT_MAP.txt",11);
+        loadMap("/maps/WEAPON_SHOP.txt",12);
+        loadMap("/maps/NPC_Normal_House.txt",13);
+        loadMap("/maps/NPC_Normal_House.txt",14);
+        loadMap("/maps/NPC_Normal_House.txt",15);
+        loadMap("/maps/NPC_Normal_House.txt",16);
+        loadMap("/maps/NPC_Normal_House.txt",17);
     }
     public void getTileImage(){
         for (int i=0; i < fileNames.size();i++){
