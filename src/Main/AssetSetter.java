@@ -21,6 +21,9 @@ public class AssetSetter {
     }
     public void setNPC(){
         entitySetter(gp.npc,new NPC_OldMan(gp),0,0,77,45);
+        entitySetter(gp.npc,new NPC_PinkHair(gp),0,1,50,50);
+        entitySetter(gp.npc,new NPC_WhiteHair(gp),0,2,64,50);
+        entitySetter(gp.npc,new NPC_Guy1(gp),0,3,60,42);
         entitySetter(gp.npc,new NPC_WeaponSmith(gp),3,1,28,26);
     }
 

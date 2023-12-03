@@ -3,12 +3,15 @@ package Entity;
 import Main.GamePanel;
 
 public class Projectile extends Entity{
+    GamePanel gp;
     Entity user;
     public Projectile(GamePanel gp) {
         super(gp);
+        this.gp=gp;
     }
 
-    public void set(int worldX, int worldY, String direction, boolean alive, Entity user){
+    public void set(int currentMap,int worldX, int worldY, String direction, boolean alive, Entity user){
+        gp.currentMap=currentMap;
         this.worldX=worldX;
         this.worldY=worldY;
         this.direction=direction;

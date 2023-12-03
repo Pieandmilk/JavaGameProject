@@ -238,7 +238,7 @@ public class Player extends Entity{
 
         if (gp.keyH.shootKeyPressed==true && projectile.alive==false && shotAvailableCounter==30 && projectile.hasResource(this)==true){
             //SETS DEFAULT VALUE
-            projectile.set(worldX,worldY,direction,true,this);
+            projectile.set(gp.currentMap,worldX,worldY,direction,true,this);
 
             //subtracts
             projectile.subtractResource(this);

@@ -76,7 +76,7 @@ public class ENEM_Rock_Elemental extends Entity {
 
         int i = new Random().nextInt(100)+1;
         if (i >99 && projectile.alive==false && shotAvailableCounter==30){
-            projectile.set(worldX,worldY,direction,true,this);
+            projectile.set(gp.currentMap,worldX,worldY,direction,true,this);
             gp.projectileList.add(projectile);
             shotAvailableCounter=0;
         }
