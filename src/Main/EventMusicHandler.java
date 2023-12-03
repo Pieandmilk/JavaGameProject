@@ -147,7 +147,7 @@ public class EventMusicHandler {
         }
     }
     public void enteringBeach(){
-        String text= "Beach";
+        String text= "WHITE SAND BEACH";
         gp.stopMusic();
         gp.playMusic(18);
         gp.ui.addAnnouncement(text);
@@ -170,7 +170,7 @@ public class EventMusicHandler {
     }
 
     public void enteringSouthIsland(){
-        String text= "SOUTH ISLAND";
+        String text= "SOUTH ISLAND CITY";
         gp.stopMusic();
         gp.playMusic(19);
         gp.ui.addAnnouncement(text);
