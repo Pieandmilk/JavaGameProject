@@ -1,5 +1,7 @@
 package Main;
 
+import GUI.GUI;
+
 public class EventHandler {
     GamePanel gp;
     EventRect eventRect[][][];
@@ -234,6 +236,14 @@ public class EventHandler {
                 gettingOutTournamentBuilding2();
             }
 
+
+            //Buying in shop
+            if (hit(3,28,28,"any")==true){
+                shopGUI();
+            }
+            if (hit(12,28,28,"any")==true){
+                shopGUI2();
+            }
 
         }
     }
@@ -555,7 +565,21 @@ public class EventHandler {
         gp.player.worldX=gp.tileSize*21;
         gp.player.worldY=gp.tileSize*69;
     }
+    public void shopGUI(){
+        if (gp.keyH.ePressed==true){
+            gp.gui.pack();
+            gp.gui.setVisible(true);
 
+        }
 
+    }
+    public void shopGUI2(){
+        if (gp.keyH.ePressed==true){
+            gp.gui.pack();
+            gp.gui.setVisible(true);
+
+        }
+
+    }
 
 }

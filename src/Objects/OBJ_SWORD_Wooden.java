@@ -14,6 +14,5 @@ public class OBJ_SWORD_Wooden extends Entity {
         attackArea.height=36;
         description="["+name+"]\nAn sword made from a rotting tree.";
 
-
     }
 }

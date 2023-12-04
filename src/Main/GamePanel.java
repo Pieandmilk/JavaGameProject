@@ -2,6 +2,7 @@ package Main;
 
 import Entity.Entity;
 import Entity.Player;
+import GUI.GUI;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -43,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable{
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
     public EventMusicHandler eMusicHandler = new EventMusicHandler(this);
+    public GUI gui = new GUI(this);
     Thread gameThread;
 
     //PLAYER AND OBJECT
