@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.GUI">
+  <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="6" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="48" y="54" width="877" height="302"/>
+    </constraints>
+    <properties/>
+    <border type="none" title=""/>
+    <children>
+      <grid id="94766" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <hspacer id="98af6">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <grid id="9538f" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="e7465" class="javax.swing.JButton" binding="cartButton">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Add to Cart"/>
+                </properties>
+              </component>
+              <hspacer id="6aaf2">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <component id="5723f" class="javax.swing.JButton" binding="deleteButton">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Cancel"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="e3588" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="2" column="1" row-span="3" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="dd9a3" class="javax.swing.JLabel" binding="label1">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Item"/>
+            </properties>
+          </component>
+          <component id="dfd88" class="javax.swing.JLabel" binding="label3">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Quantity"/>
+            </properties>
+          </component>
+          <component id="58e64" class="javax.swing.JComboBox" binding="itemCMB">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model>
+                <item value="Choose An Item"/>
+                <item value="Normal Sword"/>
+                <item value="Advanced Sword"/>
+                <item value="Silver Sword"/>
+                <item value="Diamond Sword"/>
+                <item value="Platinum Sword"/>
+                <item value="Enchanted Sword"/>
+                <item value=""/>
+                <item value="Normal Shield"/>
+                <item value="Advanced Shield"/>
+                <item value="Iron Shield"/>
+                <item value="Gold Shield"/>
+                <item value="Diamond Shield"/>
+                <item value="Vibranium Shield"/>
+                <item value="Enchanted Shield"/>
+                <item value=""/>
+                <item value="Basic Potion"/>
+                <item value="Advanced Potion"/>
+                <item value="Super Potion"/>
+              </model>
+            </properties>
+          </component>
+          <component id="7306c" class="javax.swing.JSpinner" binding="iQTY">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <vspacer id="512ce">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="9ab4c">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+      <component id="abdde" class="javax.swing.JButton" binding="payButton" default-binding="true">
+        <constraints>
+          <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Pay"/>
+        </properties>
+      </component>
+      <scrollpane id="f8fd8" binding="jScroll1">
+        <constraints>
+          <grid row="2" column="0" row-span="4" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="6639e" class="javax.swing.JList" binding="list1" default-binding="true">
+            <constraints/>
+            <properties>
+              <model>
+                <item value="SWORDS"/>
+                <item value="Normal Sword:&#9; $25"/>
+                <item value="Advanced Sword:&#9; 78"/>
+                <item value="Silver Sword:&#9; 178"/>
+                <item value="Diamond Sword:&#9; 221"/>
+                <item value="Platinum Sword:&#9; 411"/>
+                <item value="Enchanted Sword: 450"/>
+                <item value="-----------------------------"/>
+                <item value="SHIELDS"/>
+                <item value="Normal Shield:    50"/>
+                <item value="Advanced Shield:  87"/>
+                <item value="Iron Shield:      120"/>
+                <item value="Gold Shield:      170"/>
+                <item value="Diamond Shield:   190"/>
+                <item value="Enchanted Shield: 225"/>
+                <item value="Vibranium Shield: 300"/>
+                <item value="----------------------------"/>
+                <item value="POTIONs"/>
+                <item value="Basic Potion: 15"/>
+                <item value="Advanced Potion: 35"/>
+                <item value="Super potion: 68"/>
+              </model>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <scrollpane id="9babf">
+        <constraints>
+          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="250"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="72657" class="javax.swing.JTextArea" binding="panelView">
+            <constraints/>
+            <properties>
+              <columns value="2"/>
+              <editable value="false"/>
+              <lineWrap value="false"/>
+              <requestFocusEnabled value="false"/>
+              <tabSize value="8"/>
+              <text value=""/>
+            </properties>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="eb8fe" class="javax.swing.JLabel" binding="label6">
+        <constraints>
+          <grid row="1" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Cart"/>
+        </properties>
+      </component>
+      <component id="4b9ff" class="javax.swing.JLabel" binding="label4">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Price List"/>
+        </properties>
+      </component>
+      <hspacer id="4eb43">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <component id="437ae" class="javax.swing.JTextField" binding="panelView2">
+        <constraints>
+          <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="edf7c" class="javax.swing.JLabel" binding="labelTitle">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="KERBY's CONVENIENCE STORE"/>
+        </properties>
+      </component>
+      <hspacer id="52ddf">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="4" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+    </children>
+  </grid>
+</form>

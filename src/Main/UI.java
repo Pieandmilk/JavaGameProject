@@ -92,9 +92,7 @@ public class UI {
             else if (gp.gameState==gp.pauseState){
                 drawPauseMenu();
             }
-            else if(gp.gameState == gp.inGameSettingsState){
-                drawGameSettings();
-            }
+
 
             //Dialog State
             else if (gp.gameState==gp.dialogState){
@@ -253,32 +251,10 @@ public class UI {
             g2.setColor(Color.white);
             g2.drawString(text, x, y);
         }
-        //GAME SETTINGS
-        if(commandNum==2){
-            text = "GAME SETTINGS";
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
-            x = getXforCenterOfScreen(text);
-            y += gp.tileSize*1.75;
-            //Shadow
-            g2.setColor(Color.GREEN);
-            g2.drawString(text, x + 4, y + 4);
-            //main Color
-            g2.setColor(Color.white);
-            g2.drawString(text, x, y);
-        }else{
-            text = "GAME SETTINGS";
-            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40F));
-            x = getXforCenterOfScreen(text);
-            y += gp.tileSize*1.75;
-            //Shadow
-            g2.setColor(Color.blue);
-            g2.drawString(text, x + 4, y + 4);
-            //main Color
-            g2.setColor(Color.white);
-            g2.drawString(text, x, y);
-        }
+
+
         //back to main menu
-        if(commandNum==3){
+        if(commandNum==2){
             text = "MAIN MENU";
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
             x = getXforCenterOfScreen(text);
@@ -300,84 +276,6 @@ public class UI {
             //main Color
             g2.setColor(Color.white);
             g2.drawString(text, x, y);
-        }
-    }
-    //in game settings
-    public void drawGameSettings(){
-        //options box
-        g2.setColor(Color.white);
-        g2.setFont(g2.getFont().deriveFont(32F));
-        //sub window
-        int frameX = gp.tileSize*4;
-        int frameY = gp.tileSize/2;
-        int frameWidth = gp.tileSize*14;
-        int frameHeight = gp.tileSize*11;
-        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
-        //options title
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60F));
-        String text = "GAME SETTINGS";
-        int x = getXforCenterOfScreen(text);
-        int y = gp.screenHeight/4;
-        //Shadow
-        g2.setColor(Color.blue);
-        g2.drawString(text, x + 4, y + 4);
-        //main color
-        g2.setColor(Color.white);
-        g2.drawString(text, x, y);
-
-        //full screen or not
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
-        text = "SCREEN MODE";
-        x = getXforOffSetScreen(text);
-        y += gp.tileSize * 2;
-        //Shadow
-        g2.setColor(Color.blue);
-        g2.drawString(text, x + 4, y + 4);
-        //main Color
-        g2.setColor(Color.white);
-        g2.drawString(text, x, y);
-//14:37 Still working on this**************
-        int textX = frameX +gp.tileSize*10;
-        int textY = frameY + gp.tileSize*5;
-        g2.drawRect(textX, textY,12, textY);
-
-        if(commandNum==0) {
-            g2.setColor(Color.red);
-            g2.drawString(">", x - (gp.tileSize / 2), y);
-        }
-
-        //Sound Level
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
-        text = "MUSIC LEVEL";
-        x = getXforOffSetScreen(text);
-        y += gp.tileSize * 2;
-        //Shadow
-        g2.setColor(Color.blue);
-        g2.drawString(text, x + 4, y + 4);
-        //main Color
-        g2.setColor(Color.white);
-        g2.drawString(text, x, y);
-
-        if (commandNum == 1) {
-            g2.setColor(Color.red);
-            g2.drawString(">", x - (gp.tileSize / 2), y);
-        }
-
-        //full screen or not
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
-        text = "SOUND FX LEVEL";
-        x = getXforOffSetScreen(text);
-        y += gp.tileSize * 2;
-        //Shadow
-        g2.setColor(Color.blue);
-        g2.drawString(text, x + 4, y + 4);
-        //main Color
-        g2.setColor(Color.white);
-        g2.drawString(text, x, y);
-
-        if (commandNum == 2) {
-            g2.setColor(Color.red);
-            g2.drawString(">", x - (gp.tileSize / 2), y);
         }
     }
 
