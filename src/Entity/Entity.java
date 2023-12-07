@@ -47,6 +47,7 @@ public abstract class Entity {
     public int hpBarCounter=0;
     public int respawnCounter=0;
     public int shotAvailableCounter=0;
+    public int calCounter=0;
 
     //Attributes
     public String name;
