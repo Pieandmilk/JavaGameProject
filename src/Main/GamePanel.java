@@ -1,5 +1,6 @@
 package Main;
 
+import DiscreteStructures.StatisticsCalculatorUII;
 import Entity.Entity;
 import Entity.Player;
 import GUI.GUI;
@@ -45,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
     public EventHandler eHandler = new EventHandler(this);
     public EventMusicHandler eMusicHandler = new EventMusicHandler(this);
     public GUI gui = new GUI(this);
+    public StatisticsCalculatorUII guii = new StatisticsCalculatorUII();
     Thread gameThread;
 
     //PLAYER AND OBJECT

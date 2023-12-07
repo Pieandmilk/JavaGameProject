@@ -35,6 +35,7 @@ public class AssetSetter {
         entitySetter(gp.npc,new NPC_GuyGuard(gp),0,11,44,53);
         entitySetter(gp.npc,new NPC_GuyGuard(gp),0,12,57,60);
         entitySetter(gp.npc,new NPC_GuyGuard(gp),0,13,19,69);
+        entitySetter(gp.npc,new NPC_OldStatiscian(gp),0,14,66,50);
 
 
         entitySetter(gp.npc,new NPC_WeaponSmith(gp),3,1,28,26);

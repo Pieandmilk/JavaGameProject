@@ -349,6 +349,14 @@ public class Player extends Entity{
         if (gp.keyH.enterPressed==true){
             if (i != 999){
                 gp.gameState=gp.dialogState;
+
+                if (i == 14){
+                    calCounter++;
+                    if (calCounter==5){
+                        gp.guii.setLocationRelativeTo(null);
+                        gp.guii.setVisible(true);
+                    }
+                }
                 gp.npc[gp.currentMap][i].speak();
             }
             else{
