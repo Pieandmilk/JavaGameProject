@@ -129,13 +129,14 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_UP) {
                 gp.ui.commandNum--;
+
                 if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 3;
+                    gp.ui.commandNum = 2;
                 }
             }
             if (code == KeyEvent.VK_DOWN) {
                 gp.ui.commandNum++;
-                if (gp.ui.commandNum > 3) {
+                if (gp.ui.commandNum > 2) {
                     gp.ui.commandNum = 0;
                 }
             }
@@ -151,32 +152,16 @@ public class KeyHandler implements KeyListener {
             if (gp.ui.commandNum == 1) {
 
             }
-            //option settings
-            if (gp.ui.commandNum == 2) {
-                gp.gameState = gp.inGameSettingsState; //go from paused to settings
-                gp.ui.commandNum = 0;
-            }
+
             //MainMenu
-            if (gp.ui.commandNum == 3) {
+            if (gp.ui.commandNum == 2) {
                 gp.gameState = gp.titleState; // Change game state to title state
                 gp.ui.commandNum = 0;
                 gp.stopMusic();
             }
 
 
-            if (code == KeyEvent.VK_UP) {
-                gp.ui.commandNum--;
 
-                if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 2;
-                }
-            }
-            if (code == KeyEvent.VK_DOWN) {
-                gp.ui.commandNum++;
-                if (gp.ui.commandNum > 2) {
-                    gp.ui.commandNum = 0;
-                }
-            }
         }
     }
     public void inGameSettingsState(int code){
